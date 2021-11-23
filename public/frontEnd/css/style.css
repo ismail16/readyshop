@@ -5038,6 +5038,7 @@ form.commentform.reviewform select {
     box-shadow: 0px 0px 38px 5px #ddd;
     padding: 35px;
     border-radius: 5px;
+    height: fit-content !important;
 }
 .ordernote h3 {
     margin: 12px 0;

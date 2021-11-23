@@ -87,9 +87,9 @@
                               <div class="form-group">
                                   <label for="area">Area *</label>
                                   <select name="area" id="area" class="select2 form-control {{ $errors->has('area') ? ' is-invalid' : '' }}" value="{{ old('area') }} " required>
-                                    @if($shippingAddress!=NULL)
-                                    @foreach($saveareas as $savearea)
-                                    <option value="{{$savearea->id}}">{{$savearea->area}}</option>
+                                    @if($areas!=NULL)
+                                    @foreach($areas as $area)
+                                    <option value="{{$area->id}}">{{$area->area}}</option>
                                     @endforeach
                                     @endif
                                   </select>
@@ -167,7 +167,6 @@
                     </div>
                     </div>
                     <div class="card">
-                          
                           <div id="" class="" aria-labelledby="" data-parent="#">
                             <div class="card-body">
                               <div class=" set-shipping">

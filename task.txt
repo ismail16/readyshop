@@ -1,0 +1,5 @@
+1. codecanyon purchase code system add with install system.
+2. Payment Gateway add. Paypal, Stripe, Razorpay, paystack, senangPay.
+3. all mail body change
+*******************************************************
+4. Product variant price change.

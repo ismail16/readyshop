@@ -56,19 +56,20 @@ class CustomerController extends Controller
     	     $store_data->verifyToken 	=	1;
     	     $store_data->status 	    =	1;
     	     $store_data->password 		=	bcrypt(request('password'));
-    	     $store_data->save();
+             $store_data->save();
 
           // customer id put
           $customerId=$store_data->id;
           Session::put('customerId',$customerId);
           
-          if($store_data->email !=NULL){
-              $data=$store_data->toArray();
-                $send = Mail::send('frontEnd.emails.register', $data, function($textmsg) use ($data){
-                  $textmsg->to($data['email']);
-                  $textmsg->subject('Account Create Successfully');
-                });
-          }
+          // if($store_data->email !=NULL){
+          //     $data=$store_data->toArray();
+          //       $send = Mail::send('frontEnd.emails.register', $data, function($textmsg) use ($data){
+          //         $textmsg->to($data['email']);
+          //         $textmsg->subject('Account Create Successfully');
+          //       });
+          // }
+          
           Toastr::success('message', 'Your information add successfully!');
           return redirect('customer/account');
     	 }
@@ -369,20 +370,20 @@ class CustomerController extends Controller
                 }
             }
             $findcustomer = Customer::find(Session::get('customerId'));
-            if($findcustomer->email !=NULL){
-               $data = array(
-                     'email'         => $findcustomer->email,
-                     'trackingId'    => $order->trackingId,
-                     'fullName'      => $request->fullName,
-                     'phoneNumber'   => $request->phoneNumber,
-                     'address'       => $request->address,
-                     'orderTotal'       => $order->orderTotal,
-                    );;
-                $send = Mail::send('frontEnd.emails.order', $data, function($textmsg) use ($data){
-                  $textmsg->to($data['email']);
-                  $textmsg->subject('Order Place Successfully');
-                });
-            }
+            // if($findcustomer->email !=NULL){
+            //    $data = array(
+            //          'email'         => $findcustomer->email,
+            //          'trackingId'    => $order->trackingId,
+            //          'fullName'      => $request->fullName,
+            //          'phoneNumber'   => $request->phoneNumber,
+            //          'address'       => $request->address,
+            //          'orderTotal'       => $order->orderTotal,
+            //         );;
+            //     $send = Mail::send('frontEnd.emails.order', $data, function($textmsg) use ($data){
+            //       $textmsg->to($data['email']);
+            //       $textmsg->subject('Order Place Successfully');
+            //     });
+            // }
             if(Session::get('couponamount') || Session::get('usecouponcode')){
                 $usedcoupon = new CouponUsed();
                 $usedcoupon->usedate = date('Y-m-d');
