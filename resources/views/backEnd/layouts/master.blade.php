@@ -96,7 +96,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="image ">
-              <img src="{{asset(auth::user()->image)}}" class="img-circle elevation-2" alt="User brand-imagee">
+              <img src="{{asset(Auth::user()->image)}}" class="img-circle elevation-2" alt="User brand-imagee">
             </div>
           </div>
           <div class="col-lg-12">
@@ -412,10 +412,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/editor/payment-method/manage')}}" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Manage</p>
-                </a>
+                  <a href="{{ route('admin.paypalEdit',1) }}" class="nav-link {{Request::is('admin/set-payment-paypal*') ? 'active':''}}">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Paypal</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ route('admin.stripeEdit',1) }}" class="nav-link {{Request::is('admin/set-payment-stripe*') ? 'active':''}}">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Stripe</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ route('admin.CashOnDeliveryEdit',1) }}" class="nav-link {{Request::is('admin/set-payment-cash-on-delivery*') ? 'active':''}}">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Cash On Delivery</p>
+                  </a>
               </li>
             </ul>
           </li>

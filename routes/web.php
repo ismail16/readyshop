@@ -194,7 +194,20 @@ Route::group(['as'=>'admin.', 'prefix'=>'admin', 'namespace'=>'admin','middlewar
     Route::get('/expence/reports','ExpenceController@expencereports');
     Route::post('/expence/reports/filter','ExpenceController@expencefilter');
 
+    Route::get('set-payment-paypal/{id}', 'SetPaymentController@paypalEdit')->name('paypalEdit');
+    Route::put('set-payment-paypal/{id}', 'SetPaymentController@paypalUpdate')->name('paypalUpdate');
+
+    Route::get('set-payment-stripe/{id}', 'SetPaymentController@stripeEdit')->name('stripeEdit');
+    Route::put('set-payment-stripe/{id}', 'SetPaymentController@stripeUpdate')->name('stripeUpdate');
+
+    Route::get('set-payment-cash-on-delivery/{id}', 'SetPaymentController@CashOnDeliveryEdit')->name('CashOnDeliveryEdit');
+    Route::put('set-payment-cash-on-delivery/{id}', 'SetPaymentController@CashOnDeliveryUpdate')->name('CashOnDeliveryUpdate');
+
 });
+
+Route::post('payment-pay-store', 'frontend\PayNowController@payment_pay_store')->name('payment_pay_store');
+
+Route::post('payment-pay-cash-in', 'frontend\PayNowController@payment_pay_cash_in')->name('payment_pay_cash_in');
 
 Route::group(['as'=>'editor.', 'prefix'=>'editor', 'namespace'=>'editor','middleware'=>['auth', 'editor']], function(){
  Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

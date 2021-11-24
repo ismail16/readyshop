@@ -179,25 +179,25 @@ class FrontEndController extends Controller
               ->get();
             }elseif($request->sort==3){
               $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
-              ->where('products.proSubcategory',$id)
-              ->orderBy('products.proNewprice','DESC')
+              ->where('proSubcategory',$id)
+              ->orderBy('proNewprice','DESC')
               ->with('proImage')
               ->get();
             }elseif($request->sort==4){
                 $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
-                ->orderBy('products.proNewprice','ASC')
+                ->orderBy('proNewprice','ASC')
                 ->select('products.*')
                 ->with('proImage')
                 ->get();
             }elseif($request->sort==5){
                 $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
-                ->orderBy('products.proName','DESC')
+                ->orderBy('proName','DESC')
                 ->select('products.*')
                 ->with('proImage')
                 ->get();
             }else{
                 $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
-                ->orderBy('products.proName','ASC')
+                ->orderBy('proName','ASC')
                 ->select('products.*')
                ->orderBy('id','DESC')
                ->with('proImage')
@@ -207,12 +207,12 @@ class FrontEndController extends Controller
               $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
               ->orderBy('id','DESC')
               ->select('products.*')
-              ->where('products.proNewprice', '<=',$request->maxprice)
-              ->where('products.proNewprice', '>',$request->minprice)
+              ->where('proNewprice', '<=',$request->maxprice)
+              ->where('proNewprice', '>',$request->minprice)
               ->with('proImage')
               ->get();
         }else{
-            $products = Product::where(['status'=>1,'proSubcategory'=>$bredcrumb->id])
+            $products = Product::where(['status'=>1,'proChildCategory'=>$bredcrumb->id])
               ->orderBy('id','DESC')
               ->with('proImage')
               ->get();
