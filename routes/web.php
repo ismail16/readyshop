@@ -207,7 +207,7 @@ Route::group(['as'=>'admin.', 'prefix'=>'admin', 'namespace'=>'admin','middlewar
 
 Route::post('payment-pay-store', 'frontend\PayNowController@payment_pay_store')->name('payment_pay_store');
 
-Route::post('payment-pay-cash-in', 'frontend\PayNowController@payment_pay_cash_in')->name('payment_pay_cash_in');
+Route::post('payment-pay', 'frontend\PayNowController@payment_pay')->name('payment_pay');
 
 Route::group(['as'=>'editor.', 'prefix'=>'editor', 'namespace'=>'editor','middleware'=>['auth', 'editor']], function(){
  Route::get('/dashboard', 'DashboardController@index')->name('dashboard');

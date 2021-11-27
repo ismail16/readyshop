@@ -202,10 +202,11 @@
                                 <img class="img-fluid float-right" src="{{ asset('public/images/card.png') }}">
                             </div>
 
-                            <form role="form" action="{{ route('payment_pay_store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk" id="payment-form">
+                            <form role="form" action="{{ route('payment_pay') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk" id="payment-form">
                                 @csrf
                                 <input type="hidden" name="order_id" value="">
                                 <input type="hidden" name="totalAmount" value="">
+                                <input type="hidden" name="paymentType" value="">
 
                                 <div class="box-body pt-5 pb-4 pr-4 pl-4">
                                     <div class="form-group mb-1">
