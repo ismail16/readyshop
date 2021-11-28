@@ -1,5 +1,5 @@
 @extends('frontEnd.layouts.master')
-@section('title','Shipping')
+@section('title','Payment')
 @section('content')
 <!--common html-->
 <div class="custom-breadcrumb">
@@ -13,7 +13,7 @@
           <li><a class="anchor"><i class="fa fa-angle-right"></i></a></li>
           <li><a class="anchor">Shopping <i class="fa fa-angle-right"></i></a></li>
           @endif
-          <li><a class="anchor">Shipping</a></li>
+          <li><a class="anchor">Payment</a></li>
         </ul>
       </div>
     </div>
@@ -23,147 +23,14 @@
 <!--custom breadcrumb end-->
 <section class="section-padding orderpage">
   <div class="container">
-    <form action="{{url('customer/order/save')}}" method="POST" name="editForm" class="pcustform">
-      @csrf
-      <div class="row">
-        <div class="col-lg-7 col-md-7 col-sm-7">
-          <div class="show-cart-inner checkout cprofile-details">
-            <div class="accordion" id="accordionExample">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h2 class="mb-0">
-                    <button class="btn " type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                     <i class="fa fa-map-marker"></i> Shipping Address
-                   </button>
-                 </h2>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="fullName">Full Name *</label>
-                        <input type="text" name="fullName" id="fullName" value="@if($shippingAddress!=NULL){{$shippingAddress->recipient}} @else @endif" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="phoneNumber">Phone Number *</label>
-                        <input type="text" name="phoneNumber" id="phoneNumber" value="@if($shippingAddress!=NULL){{$shippingAddress->shippingPhone}} @else @endif" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      @php
-                      $cusshippinginfo = App\Shippingaddress::where('customerId',Session::get('customerId'))->first();
-                      $subtotal=Cart::instance('shopping')->subtotal();
-                      $subtotal=str_replace(',','',$subtotal);
-                      $subtotal=str_replace('.00', '',$subtotal);
-
-                      $extrashipping = 0;
-                      $cartitems = Cart::instance('shopping')->content();
-                      foreach($cartitems as $cartitem){
-                        $extrashipping +=$cartitem->options->extrashipping;
-                      }
-
-                      @endphp
-                      <div class="form-group">
-                        <label for="district">District *</label>
-                        <select class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}"  id="district" name="district">
-                          <option value="">Select...</option>
-                          @foreach($districts as $district) 
-                          <option value="{{$district->id}}" required>{{$district->name}}</option>
-                          @endforeach
-                        </select>
-                        @if ($errors->has('district'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('district') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="area">Area *</label>
-                        <select name="area" id="area" class="select2 form-control {{ $errors->has('area') ? ' is-invalid' : '' }}" value="{{ old('area') }} " required>
-                          @if($areas!=NULL)
-                          @foreach($areas as $area)
-                          <option value="{{$area->id}}">{{$area->area}}</option>
-                          @endforeach
-                          @endif
-                        </select>
-                        @if ($errors->has('area'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('area') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label for="address">Full Address *</label>
-                        <textarea name="address" id="address" class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}">@if($shippingAddress!=NULL){{$shippingAddress->shippingAddress}} @else @endif</textarea>
-                        @if ($errors->has('address'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('address') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label for="note">Note (optional)</label>
-                        <textarea name="note" id="note" class="form-control {{ $errors->has('note') ? ' is-invalid' : '' }}" value="{{ old('note') }}"></textarea>
-                        @if ($errors->has('note'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('note') }}</strong>
-                        </span>
-                        @endif
-                      </div>
-                    </div>
-                    <!-- /.form-group -->
-                  </div>
-                </div>
-              </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-5 col-md-5 col-sm-5">
+          <div class="alert alert-success mt-2 mb-2 text-center">
+            <div class="text-center alert-warning">
+                <span class="h5">Total Payment  - ${{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}}</span>
             </div>
           </div>
-        </div>
-        <!-- col end -->
-
-        <div class="col-lg-5 col-md-5 col-sm-5">
-          <div class="shippingContent">
-            <div class="coupon_code right">
-              <h3>Cart Totals</h3>
-              <div class="coupon_inner">
-               <div class="cart_subtotal">
-                 <p>Shopping</p>
-                 <p class="cart_amount">{{Cart::instance('shopping')->content()->count()}} - (items)</p>
-               </div>
-               <div class="cart_subtotal">
-                 <p>Subtotal</p>
-                 <p class="cart_amount">৳ {{$subtotal}}</p>
-               </div>
-               <div class="cart_subtotal ">
-                 <p>Shipping</p>
-
-                 <p class="cart_amount">৳ @if(Session::get('shippingfee') !=NULL) {{Session::get('shippingfee') + $extrashipping}}  @else 0 @endif</p>
-               </div>
-               <div class="cart_subtotal">
-                 <p>Discount</p>
-                 <p class="cart_amount">৳  @if(Session::get('couponamount') !=NULL) {{Session::get('couponamount')}} @else 0 @endif</p>
-               </div>
-               <div class="cart_subtotal">
-                 <p>Total</p>
-                 <p class="cart_amount">৳  {{($subtotal + $extrashipping + Session::get('shippingfee')) - Session::get('couponamount')}}</p>
-               </div>
-             </div>
-
-           </div>
-         </div>
-         <!-- <div class="card p-2">
+         <div class="card p-2">
             <div class="order_wrapper">
                 <div class="form-group mt-2">
                     <h4>Select a payment method</h4>
@@ -173,7 +40,7 @@
                             $StripeSet = App\StripeSet::first();
                             $CashOnDeliverySet = App\CashOnDeliverySet::first();
                         @endphp
-                        <select class="form-control" name="payment_method" v-model="order.payment_method" required id="payments">
+                        <select class="form-control border-primary" name="payment_method" v-model="order.payment_method" required id="payments">
                             <option>Seletct Payment Method</option>
                             @if ($CashOnDeliverySet)
                                 @if ($CashOnDeliverySet->status == 1)
@@ -202,11 +69,10 @@
                                 <img class="img-fluid float-right" src="{{ asset('public/images/card.png') }}">
                             </div>
 
-                            <form role="form" action="{{ route('payment_pay') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk" id="payment-form">
+                            <form role="form" action="{{ route('payment_pay_store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk" id="payment-form">
                                 @csrf
-                                <input type="hidden" name="order_id" value="">
-                                <input type="hidden" name="totalAmount" value="">
-                                <input type="hidden" name="paymentType" value="">
+                                <input type="hidden" name="order" value="{{ $order }}">
+                                <input type="hidden" name="paymentType" value="stripe">
 
                                 <div class="box-body pt-5 pb-4 pr-4 pl-4">
                                     <div class="form-group mb-1">
@@ -244,17 +110,17 @@
                         </div>  
 
                         <div id="payment_cash_in" class="d-none">
-                            <form role="form" action="{{ route('payment_pay') }}" method="post">
+                            <form role="form" action="{{ route('payment_pay_store') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="totalAmount" value="{{($subtotal + $extrashipping + Session::get('shippingfee')) - Session::get('couponamount')}}">
-                                <input type="hidden" name="payment_method" value="cash_on_delivery">
+                                <input type="hidden" name="paymentType" value="cash_on_delivery">
+                                <input type="hidden" name="order" value="{{ $order }}">
 
-                                <div class="alert alert-success mt-2 mb-2 text-center">
+                               <!--  <div class="alert alert-success mt-2 mb-2 text-center">
                                   <div class="text-center alert-warning">
                                       <p style="font-size: 11px;">[N.B Shipping Cost is Added]</p>
                                   </div>
-                                </div>
-                                <div class="order_button">
+                                </div> -->
+                                <div class="order_button mt-2">
                                     <button type="submit" class="btn btn-primary">Order Confirmed</button>
                                 </div>
                              </form>
@@ -262,21 +128,13 @@
                     </div>
                 </div>
             </div>
-         </div> -->
-         <div class="order_button mt-2">
-              <button type="submit" class="btn btn-primary">Order Confirmed & Continue</button>
-          </div>
+         </div>
       </div>
   </div>
-</form>
+
 </div>
 </section>
-@if($shippingAddress !=NULL)
-<script type="text/javascript">
-  document.forms['editForm'].elements['district'].value="{{$shippingAddress->district}}"
-  document.forms['editForm'].elements['area'].value="{{$shippingAddress->area}}"
-</script>
-@endif
+
 
 <script type="text/javascript">
 $("#payments").change(function(){
@@ -312,7 +170,7 @@ $("#payments").change(function(){
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: {{($subtotal + $extrashipping + Session::get('shippingfee')) - Session::get('couponamount')}},
+            value: {{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}},
               currency: 'USD'
           }
         }],
@@ -323,14 +181,14 @@ $("#payments").change(function(){
       return actions.order.capture().then(function(details) {
           // Show a success message to your buyer
           var orderId = "";
-          var paymentType = "";
-          var senderId = "";
+          var paymentType = "Paypal";
+          var senderId = "null";
           var transectionId = "";
           $.ajax({
             url: "gggggg",
             method: "POST",
             dataType: "JSON",
-            data: {cdetails:details, orderId: orderId, paymentType: paymentType, senderId: senderId, transectionId: transectionId, _token: '{{csrf_token()}}'},
+            data: {orderId: orderId, paymentType: paymentType, senderId: senderId, transectionId: transectionId, _token: '{{csrf_token()}}'},
             success: function (res) {
               console.log(res);
               Swal.fire('Transaction completed by ' + details.payer.name.given_name + '! Please check your mail');
