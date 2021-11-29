@@ -33,7 +33,7 @@
          <div class="card p-2">
             <div class="order_wrapper">
                 <div class="form-group mt-2">
-                    <h4>Select a payment method</h4>
+                    <h4 class="text-left">Select a payment method</h4>
                     <div class="mt-1">
                         @php
                             $PaypalSet = App\PaypalSet::first();
@@ -59,42 +59,40 @@
                                     <option value="paypal">Paypal</option>
                                 @endif
                             @endif
-
-                            
                         </select>
 
-                        <div id="payment_stripe" class="d-none box box-primary bg-light border mt-2">
+                        <div id="payment_stripe" class="d-none box box-primary text-left bg-light border mt-2">
                             <h4 class="bg-warning text-center">Stripe</h4>
                             <div class="">
                                 <img class="img-fluid float-right" src="{{ asset('public/images/card.png') }}">
                             </div>
 
-                            <form role="form" action="{{ route('payment_pay_store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk" id="payment-form">
+                            <form role="form" action="{{url('customer/order/payemnt/stripe')}}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{$StripeSet->PublishableKey}}" id="payment-form">
                                 @csrf
-                                <input type="hidden" name="order" value="{{ $order }}">
+                                <input type="hidden" name="orderID" value="{{ $order->orderIdPrimary }}">
                                 <input type="hidden" name="paymentType" value="stripe">
 
                                 <div class="box-body pt-5 pb-4 pr-4 pl-4">
                                     <div class="form-group mb-1">
                                         <label class='control-label mb-0'>Card holder Name</label>
-                                        <input class='form-control-sm w-100' size='4' type='text' name="holder_name">
+                                        <input class='form-control-sm border w-100' size='4' type='text' name="holder_name">
                                     </div>
                                     <div class="form-group mb-1">
                                         <label class='control-label mb-0'>Card Number</label>
-                                        <input autocomplete='off' class='form-control-sm w-100 card-number' size='20' type='text'>
+                                        <input autocomplete='off' class='form-control-sm w-100 border card-number' size='20' type='text'>
                                     </div>
                                     <div class='form-row row'>
                                         <div class='col-xs-12 col-md-4 form-group cvc required'>
                                             <label class='control-label mb-0'>CVC</label>
-                                            <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
+                                            <input autocomplete='off' class='border form-control-sm w-100 card-cvc' placeholder='ex. 311' size='4' type='text'>
                                         </div>
                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                             <label class='control-label  mb-0'>Expiration Month</label>
-                                            <input class='form-control-sm w-100 card-expiry-month' placeholder='MM' size='2' type='text'>
+                                            <input class='border form-control-sm w-100 card-expiry-month' placeholder='MM' size='2' type='text'>
                                         </div>
                                         <div class='col-xs-12 col-md-4 form-group expiration required'>
                                             <label class='control-label  mb-0'>Expiration Year</label>
-                                            <input class='form-control-sm w-100 card-expiry-year' placeholder='YYYY' size='4' type='text'>
+                                            <input class='border form-control-sm w-100 card-expiry-year' placeholder='YYYY' size='4' type='text'>
                                         </div>
                                     </div>
                                     <div class="box-footer">

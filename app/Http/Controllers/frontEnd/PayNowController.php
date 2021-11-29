@@ -18,6 +18,7 @@ use App\Ratting;
 use App\Shippingfee;
 use Cart;
 use Session;
+use Stripe;
 use App\Post;
 use App\Guestorder;
 use App\Guestorderdetails;
@@ -27,6 +28,7 @@ use App\Shippingaddress;
 use App\Review;
 use App\Couponcode;
 use App\CouponUsed;
+use App\StripeSet;
 use Mail;
 use File;
 use Auth;
@@ -531,15 +533,14 @@ class PayNowController extends Controller
     public function payment_pay_stripe(Request $request){
 
         // -------------------------------------
-        $order = json_decode($request->order);
-        // $transectionId = uniqid();
         $transFee = 0;
+        $order = Order::where('orderIdPrimary', $request->orderID)->first();
 
-
-        Stripe\Stripe::setApiKey('sk_test_HETvnHVWPE2yxioaiobPi25k00uvh64zC3');
+        $StripeSet = StripeSet::first();
+        Stripe\Stripe::setApiKey($StripeSet->SecretKey);
         try{
             $data = Stripe\Charge::create ([
-                "amount" => $order->totalAmount * 100,
+                "amount" => $order->orderTotal * 100,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => "Pay Against this Order ID: ".$order->orderIdPrimary
@@ -549,17 +550,6 @@ class PayNowController extends Controller
             Session::flash('danger', 'The system is not accepting your card/payment method!');
             return back();
         }
-
-        // $order_id = $request->order_id;
-        // $billing_name = $request->holder_name;
-        // $payment_id = $data->id;
-        // $transaction_id = $data->balance_transaction;
-        // $payment_method = $data->payment_method;
-        // $amount = $data->amount;
-        // $receipt_url = $data->receipt_url;
-        // $pay_type = $data->source->object;
-        // $card_type = $data->source->brand;
-        // $last4 = $data->source->last4;
 
         // -------------------------------------
         $payment                 = new Payment();
@@ -575,8 +565,6 @@ class PayNowController extends Controller
         return redirect('customer/order-complete/'.$order->orderIdPrimary);
 
     }
-
-   
 
     public function complete($orderId){
       $orderInfo = Order::where('orderIdPrimary',$orderId)->first();
