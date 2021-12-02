@@ -53,8 +53,8 @@
                                             </form>
                                         </div>
                                     </td>
-                                    <td class="mcart-item-hide">৳ {{$cartInfo->price}}</td>
-                                    <td> ৳ @php $subtotal= $cartInfo->qty*$cartInfo->price @endphp {{$subtotal}}</td>
+                                    <td class="mcart-item-hide">{{ session()->get('setting')->currency }} {{$cartInfo->price}}</td>
+                                    <td> {{ session()->get('setting')->currency }} @php $subtotal= $cartInfo->qty*$cartInfo->price @endphp {{$subtotal}}</td>
                                     </tr>
                                     @endforeach
                                   </tbody>
@@ -92,15 +92,15 @@
                                     @endphp
                                    <div class="cart_subtotal">
                                        <p>Subtotal</p>
-                                       <p class="cart_amount">৳ {{$subtotal}}</p>
+                                       <p class="cart_amount">{{ session()->get('setting')->currency }} {{$subtotal}}</p>
                                    </div>
                                    <div class="cart_subtotal">
                                        <p>Discount</p>
-                                       <p class="cart_amount">৳  @if(Session::get('couponamount') != NULL){{Session::get('couponamount')}} @else 0 @endif</p>
+                                       <p class="cart_amount">{{ session()->get('setting')->currency }}  @if(Session::get('couponamount') != NULL){{Session::get('couponamount')}} @else 0 @endif</p>
                                    </div>
                                    <div class="cart_subtotal">
                                        <p>Total</p>
-                                       <p class="cart_amount">৳  {{$subtotal - Session::get('couponamount')}}</p>
+                                       <p class="cart_amount">{{ session()->get('setting')->currency }}  {{$subtotal - Session::get('couponamount')}}</p>
                                    </div>
                                    <div class="checkout_btn">
                                        <a href="{{url('/checkout')}}">Proceed to Checkout</a>

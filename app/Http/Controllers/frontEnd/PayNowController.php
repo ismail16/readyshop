@@ -39,280 +39,92 @@ class PayNowController extends Controller
 {
    
 
-    // public function shippingInfo(Request $request){
-    //     $this->validate($request,[
-    //         'name'=>'required',
-    //         'phone'=>'required',
-    //         'location'=>'required',
-    //         'address'=>'required',
-    //     ]);
+    public function shippingInfo(Request $request){
+        $this->validate($request,[
+            'name'=>'required',
+            'phone'=>'required',
+            'location'=>'required',
+            'address'=>'required',
+        ]);
 
-    //    $shipping              =   new Shipping();
-    //    $shipping->name        =   $request->name;
-    //    $shipping->phone       =   $request->phone;
-    //    $shipping->address     =   $request->address;
-    //    $shipping->location     =   $request->location;
-    //    $shipping->note        =   $request->note;
-    //    $shipping->save();
-    //    Session::put('shippingId',$shipping->id);
-    //    Toastr::success('Thanks! your shipping address save successfull','success');
-    //    return redirect('/payment');
-    // }
+       $shipping              =   new Shipping();
+       $shipping->name        =   $request->name;
+       $shipping->phone       =   $request->phone;
+       $shipping->address     =   $request->address;
+       $shipping->location     =   $request->location;
+       $shipping->note        =   $request->note;
+       $shipping->save();
+       Session::put('shippingId',$shipping->id);
+       Toastr::success('Thanks! your shipping address save successfull','success');
+       return redirect('/payment');
+    }
 
-    // public function shippingcharge($id){
-    //     $shippingfee = Area::find($id)->shippingfee;
-    //     Session::put('shippingfee',$shippingfee);
-    //     return response()->json($shippingfee);
-    // }
+    public function shippingcharge($id){
+        $shippingfee = Area::find($id)->shippingfee;
+        Session::put('shippingfee',$shippingfee);
+        return response()->json($shippingfee);
+    }
 
-    // public function shippingcontent(){
-    //    return view('frontEnd.layouts.pages.shippingcontent');
-    // }
+    public function shippingcontent(){
+       return view('frontEnd.layouts.pages.shippingcontent');
+    }
 
-    // public function shippingAddress(){
-    //    $shippingAddress = Shippingaddress::where('customerId',Session::get('customerId'))->first();
-    //    if($shippingAddress!=NULL){
-    //      $saveareas = Area::where('district_id',$shippingAddress->district)->get();
-    //    }else{
-    //     $saveareas = '';
-    //    }
-    //    return view('frontEnd.layouts.pages.customer.shippingaddress',compact('shippingAddress','saveareas'));
+    public function shippingAddress(){
+       $shippingAddress = Shippingaddress::where('customerId',Session::get('customerId'))->first();
+       if($shippingAddress!=NULL){
+         $saveareas = Area::where('district_id',$shippingAddress->district)->get();
+       }else{
+        $saveareas = '';
+       }
+       return view('frontEnd.layouts.pages.customer.shippingaddress',compact('shippingAddress','saveareas'));
 
-    // }
+    }
 
-    // public function saveShippingAddress(Request $request){
-    //    $this->validate($request,[
-    //         'recipient'=>'required',
-    //         'shippingAddress'=>'required',
-    //         'shippingPhone'=>'required',
-    //         'district'=>'required',
-    //         'district'=>'required',
-    //     ]);
-    //     $findaddress = Shippingaddress::where('customerId',Session::get('customerId'))->first();
-    //     if(!$findaddress){
-    //       $shipping                   =   new Shippingaddress();
-    //       $shipping->customerId       =   Session::get('customerId');
-    //       $shipping->recipient        =   $request->recipient;
-    //       $shipping->recipient        =   $request->recipient;
-    //       $shipping->shippingAddress  =   $request->shippingAddress;
-    //       $shipping->shippingPhone    =   $request->shippingPhone;
-    //       $shipping->district         =   $request->district;
-    //       $shipping->area             =   $request->area;
-    //       $shipping->save();
-    //     }else{
-    //       $findaddress->recipient        =   $request->recipient;
-    //       $findaddress->recipient        =   $request->recipient;
-    //       $findaddress->shippingAddress  =   $request->shippingAddress;
-    //       $findaddress->shippingPhone    =   $request->shippingPhone;
-    //       $findaddress->district         =   $request->district;
-    //       $findaddress->area             =   $request->area;
-    //     }
-    //    Toastr::success('Thanks! your shipping address save successfull','success');
-    //    return redirect('/customer/account');
-    // }
+    public function saveShippingAddress(Request $request){
+       $this->validate($request,[
+            'recipient'=>'required',
+            'shippingAddress'=>'required',
+            'shippingPhone'=>'required',
+            'district'=>'required',
+            'district'=>'required',
+        ]);
+        $findaddress = Shippingaddress::where('customerId',Session::get('customerId'))->first();
+        if(!$findaddress){
+          $shipping                   =   new Shippingaddress();
+          $shipping->customerId       =   Session::get('customerId');
+          $shipping->recipient        =   $request->recipient;
+          $shipping->recipient        =   $request->recipient;
+          $shipping->shippingAddress  =   $request->shippingAddress;
+          $shipping->shippingPhone    =   $request->shippingPhone;
+          $shipping->district         =   $request->district;
+          $shipping->area             =   $request->area;
+          $shipping->save();
+        }else{
+          $findaddress->recipient        =   $request->recipient;
+          $findaddress->recipient        =   $request->recipient;
+          $findaddress->shippingAddress  =   $request->shippingAddress;
+          $findaddress->shippingPhone    =   $request->shippingPhone;
+          $findaddress->district         =   $request->district;
+          $findaddress->area             =   $request->area;
+        }
+       Toastr::success('Thanks! your shipping address save successfull','success');
+       return redirect('/customer/account');
+    }
     
-    // public function paymentcharge($id,$area){
-    //       $subtotal=Cart::instance('shopping')->subtotal();
-    //       $subtotal=str_replace(',','',$subtotal);
-    //       $subtotal=str_replace('.00', '',$subtotal);
-    //       $shippingfee = Area::find($area)->shippingfee;
-    //       if($id=="bkash" || $id=="roket"|| $id=="nagad"){
-    //               $bkashfee = (($subtotal+$shippingfee)*20)/1000;
-    //          }else{
-    //              $bkashfee = NULL;
-    //          }
-    //      response()->json($bkashfee);
-    //     return view('frontEnd.layouts.pages.paymentcharge',compact('bkashfee','shippingfee'));
+    public function paymentcharge($id,$area){
+          $subtotal=Cart::instance('shopping')->subtotal();
+          $subtotal=str_replace(',','',$subtotal);
+          $subtotal=str_replace('.00', '',$subtotal);
+          $shippingfee = Area::find($area)->shippingfee;
+          if($id=="bkash" || $id=="roket"|| $id=="nagad"){
+                  $bkashfee = (($subtotal+$shippingfee)*20)/1000;
+             }else{
+                 $bkashfee = NULL;
+             }
+         response()->json($bkashfee);
+        return view('frontEnd.layouts.pages.paymentcharge',compact('bkashfee','shippingfee'));
         
-    // }
-
-    // public function payment_pay(Request $request){
-    //     $this->validate($request,[
-    //         'fullName'=>'required',
-    //         'phoneNumber'=>'required',
-    //         'district'=>'required',
-    //         'area'=>'required',
-    //         'address'=>'required',
-    //     ]);
-    //     $extrashipping = 0;
-    //     $cartitems = Cart::instance('shopping')->content();
-    //     foreach($cartitems as $cartitem){
-    //         $extrashipping +=$cartitem->options->extrashipping;
-    //     }
-    //     $cartqty=Cart::instance('shopping')->content()->count();
-
-    //     if($cartqty){
-
-    //         $subtotal=Cart::instance('shopping')->subtotal();
-    //         $subtotal=str_replace(',','',$subtotal);
-    //         $subtotal=str_replace('.00', '',$subtotal);
-    //         $subtotal=Cart::instance('shopping')->subtotal();
-    //         $subtotal=str_replace(',','',$subtotal);
-    //         $subtotal=str_replace('.00', '',$subtotal);
-    //         $shippingfee = Area::find($request->area)->shippingfee;
-    //         $transFee = 0;
-
-    //         // shipping calculte
-    //         $area = Area::find($request->area);
-    //         $shipping              =   new Shipping();
-    //         $shipping->name        =   $request->fullName;
-    //         $shipping->phone       =   $request->phoneNumber;
-    //         $shipping->address     =   $request->address;
-    //         $shipping->district    =   $request->district;
-    //         $shipping->shippingfee =   $shippingfee+$extrashipping;
-    //         $shipping->area        =   $area->area;
-    //         $shipping->note        =   $request->note;
-    //         $shipping->customerId  =   Session::get('customerId');
-    //         $shipping->save();
-           
-    //         $order = new Order();
-    //         $order->customerId = Session::get('customerId');
-    //         $order->shippingId = $shipping->id;
-    //         $order->transFee   = $transFee;
-    //         $order->orderTotal = ($subtotal+$shippingfee+$transFee+$extrashipping)-Session::get('couponamount');
-    //         $order->discount   = Session::get('couponamount');
-    //         $order->trackingId = rand(111111,999999);
-    //         $order->created_at = Carbon::now();
-    //         $order->save();
-
-    //         $cartProducts = Cart::instance('shopping')->content();
-    //         foreach($cartProducts as $cartProduct){
-    //             $orderDetails = new Orderdetails();
-    //             $orderDetails->orderId          =   $order->id;
-    //             $orderDetails->ProductId        =   $cartProduct->id;
-    //             $orderDetails->productName      =   $cartProduct->name;
-    //             $orderDetails->productPrice     =   $cartProduct->price;
-    //             $orderDetails->productSize      =   $cartProduct->options->size? $cartProduct->options->size:'';
-    //             $orderDetails->productColor     =   $cartProduct->options->color? $cartProduct->options->color:'';
-    //             $orderDetails->proPurchaseprice =   $cartProduct->options->proPurchaseprice;
-    //             $orderDetails->productQuantity  =   $cartProduct->qty;
-    //             $orderDetails->created_at       =   Carbon::now();
-    //             $orderDetails->save();
-    //         }
-
-    //         $transectionId = uniqid();
-    //         $payment                 = new Payment();
-    //         $payment->orderId        = $order->id;
-    //         $payment->paymentType    = $request->paymentType;
-    //         $payment->senderId       = Null;
-    //         $payment->transectionId  = $transectionId;
-    //         $payment->transFee       = $transFee;
-    //         $payment->status         = 'Unpaid';
-
-
-    //         $payment->save();
-
-
-    //         // if($request->paymentType=='online'){
-    //         //     $post_data                  = array();
-    //         //     $post_data['total_amount']  = $order->orderTotal;
-    //         //     $post_data['product_category'] = "Goods";
-    //         //     $post_data['product_name'] = "Computer";
-    //         //     $post_data['product_category'] = "Goods";
-    //         //     $post_data['product_profile'] = "physical-goods";
-    //         //     $post_data['cus_name'] = $request->fullName;
-    //         //     $post_data['cus_email'] = 'shamim@gmail.com';
-    //         //     $post_data['cus_phone'] = $request->phoneNumber;
-    //         //     $post_data['cus_add1'] = $request->address;
-    //         //     $post_data['cus_add2'] = $request->address;
-    //         //     $post_data['cus_city'] = $request->district;
-    //         //     $post_data['cus_postcode'] = "1000";
-    //         //     $post_data['cus_country'] = 'Bangladesh';
-
-    //         //     $post_data['ship_name']     = $request->fullName;
-    //         //     $post_data['ship_add1']     = $request->address;
-    //         //     $post_data['ship_add2']     = $request->address;
-    //         //     $post_data['ship_city']     = $request->district;
-    //         //     $post_data['ship_state']    = $request->area;
-    //         //     $post_data['ship_postcode'] = "1000";
-    //         //     $post_data['ship_phone']    = "";
-    //         //     $post_data['ship_country']  = "Bangladesh";
-    //         //     $post_data['currency']      = "BDT";
-    //         //     $post_data['tran_id']       = $transectionId;
-    //         //     $post_data['shipping_method'] = $request->paymentType;
-                
-    //         //     $sslc = new SslCommerzNotification();
-    //         //     $payment_options = $sslc->makePayment($post_data, 'hosted');
-
-    //         //     if (!is_array($payment_options)) {
-    //         //         print_r($payment_options);
-    //         //         $payment_options = array();
-    //         //     }
-    //         // }
-
-    //         // if($request->paymentType=='paypal'){
-    //         //     $post_data                  = array();
-    //         //     $post_data['total_amount']  = $order->orderTotal;
-    //         //     $post_data['product_category'] = "Goods";
-    //         //     $post_data['product_name'] = "Computer";
-    //         //     $post_data['product_category'] = "Goods";
-    //         //     $post_data['product_profile'] = "physical-goods";
-    //         //     $post_data['cus_name'] = $request->fullName;
-    //         //     $post_data['cus_email'] = 'shamim@gmail.com';
-    //         //     $post_data['cus_phone'] = $request->phoneNumber;
-    //         //     $post_data['cus_add1'] = $request->address;
-    //         //     $post_data['cus_add2'] = $request->address;
-    //         //     $post_data['cus_city'] = $request->district;
-    //         //     $post_data['cus_postcode'] = "1000";
-    //         //     $post_data['cus_country'] = 'Bangladesh';
-
-    //         //     $post_data['ship_name']     = $request->fullName;
-    //         //     $post_data['ship_add1']     = $request->address;
-    //         //     $post_data['ship_add2']     = $request->address;
-    //         //     $post_data['ship_city']     = $request->district;
-    //         //     $post_data['ship_state']    = $request->area;
-    //         //     $post_data['ship_postcode'] = "1000";
-    //         //     $post_data['ship_phone']    = "";
-    //         //     $post_data['ship_country']  = "Bangladesh";
-    //         //     $post_data['currency']      = "BDT";
-    //         //     $post_data['tran_id']       = $transectionId;
-    //         //     $post_data['shipping_method'] = $request->paymentType;
-                
-    //         //     $sslc = new SslCommerzNotification();
-    //         //     $payment_options = $sslc->makePayment($post_data, 'hosted');
-
-    //         //     if (!is_array($payment_options)) {
-    //         //         print_r($payment_options);
-    //         //         $payment_options = array();
-    //         //     }
-    //         // }
-
-
-    //         $findcustomer = Customer::find(Session::get('customerId'));
-    //         // if($findcustomer->email !=NULL){
-    //         //    $data = array(
-    //         //          'email'         => $findcustomer->email,
-    //         //          'trackingId'    => $order->trackingId,
-    //         //          'fullName'      => $request->fullName,
-    //         //          'phoneNumber'   => $request->phoneNumber,
-    //         //          'address'       => $request->address,
-    //         //          'orderTotal'       => $order->orderTotal,
-    //         //         );;
-    //         //     $send = Mail::send('frontEnd.emails.order', $data, function($textmsg) use ($data){
-    //         //       $textmsg->to($data['email']);
-    //         //       $textmsg->subject('Order Place Successfully');
-    //         //     });
-    //         // }
-
-    //         if(Session::get('couponamount') || Session::get('usecouponcode')){
-    //             $usedcoupon = new CouponUsed();
-    //             $usedcoupon->usedate = date('Y-m-d');
-    //             $usedcoupon->customerId = Session::get('customerId');
-    //             $usedcoupon->couponcode = Session::get('usecouponcode');
-    //             $usedcoupon->save();
-    //         }
-    //       Cart::instance('shopping')->destroy();
-    //       Session::forget('usecouponcode');
-    //       Session::forget('couponamount');
-
-    //       Toastr::success('Thanks, Your order send successfully', 'Success!');
-    //       return redirect('customer/order-complete/'.$order->id);
-
-    //     }else{
-    //         Toastr::error('Opps please shopping first', 'Cart Empty');
-    //         return redirect('/');
-    //     }
-    // }
+    }
 
     public function orderSave(Request $request){
         $this->validate($request,[
@@ -376,92 +188,6 @@ class PayNowController extends Controller
                 $orderDetails->save();
             }
 
-           // $transectionId = uniqid();
-           // $payment                 = new Payment();
-           // $payment->orderId        = $order->id;
-           // $payment->paymentType    = $request->paymentType;
-           // $payment->senderId       = Null;
-           // $payment->transectionId  = $transectionId;
-           // $payment->transFee       = $transFee;
-           // $payment->status         = 'Unpaid';
-           // $payment->save();
-
-
-            // if($request->paymentType=='online'){
-            //     $post_data                  = array();
-            //     $post_data['total_amount']  = $order->orderTotal;
-            //     $post_data['product_category'] = "Goods";
-            //     $post_data['product_name'] = "Computer";
-            //     $post_data['product_category'] = "Goods";
-            //     $post_data['product_profile'] = "physical-goods";
-            //     $post_data['cus_name'] = $request->fullName;
-            //     $post_data['cus_email'] = 'shamim@gmail.com';
-            //     $post_data['cus_phone'] = $request->phoneNumber;
-            //     $post_data['cus_add1'] = $request->address;
-            //     $post_data['cus_add2'] = $request->address;
-            //     $post_data['cus_city'] = $request->district;
-            //     $post_data['cus_postcode'] = "1000";
-            //     $post_data['cus_country'] = 'Bangladesh';
-
-            //     $post_data['ship_name']     = $request->fullName;
-            //     $post_data['ship_add1']     = $request->address;
-            //     $post_data['ship_add2']     = $request->address;
-            //     $post_data['ship_city']     = $request->district;
-            //     $post_data['ship_state']    = $request->area;
-            //     $post_data['ship_postcode'] = "1000";
-            //     $post_data['ship_phone']    = "";
-            //     $post_data['ship_country']  = "Bangladesh";
-            //     $post_data['currency']      = "BDT";
-            //     $post_data['tran_id']       = $transectionId;
-            //     $post_data['shipping_method'] = $request->paymentType;
-                
-            //     $sslc = new SslCommerzNotification();
-            //     $payment_options = $sslc->makePayment($post_data, 'hosted');
-
-            //     if (!is_array($payment_options)) {
-            //         print_r($payment_options);
-            //         $payment_options = array();
-            //     }
-            // }
-
-            // if($request->paymentType=='paypal'){
-            //     $post_data                  = array();
-            //     $post_data['total_amount']  = $order->orderTotal;
-            //     $post_data['product_category'] = "Goods";
-            //     $post_data['product_name'] = "Computer";
-            //     $post_data['product_category'] = "Goods";
-            //     $post_data['product_profile'] = "physical-goods";
-            //     $post_data['cus_name'] = $request->fullName;
-            //     $post_data['cus_email'] = 'shamim@gmail.com';
-            //     $post_data['cus_phone'] = $request->phoneNumber;
-            //     $post_data['cus_add1'] = $request->address;
-            //     $post_data['cus_add2'] = $request->address;
-            //     $post_data['cus_city'] = $request->district;
-            //     $post_data['cus_postcode'] = "1000";
-            //     $post_data['cus_country'] = 'Bangladesh';
-
-            //     $post_data['ship_name']     = $request->fullName;
-            //     $post_data['ship_add1']     = $request->address;
-            //     $post_data['ship_add2']     = $request->address;
-            //     $post_data['ship_city']     = $request->district;
-            //     $post_data['ship_state']    = $request->area;
-            //     $post_data['ship_postcode'] = "1000";
-            //     $post_data['ship_phone']    = "";
-            //     $post_data['ship_country']  = "Bangladesh";
-            //     $post_data['currency']      = "BDT";
-            //     $post_data['tran_id']       = $transectionId;
-            //     $post_data['shipping_method'] = $request->paymentType;
-                
-            //     $sslc = new SslCommerzNotification();
-            //     $payment_options = $sslc->makePayment($post_data, 'hosted');
-
-            //     if (!is_array($payment_options)) {
-            //         print_r($payment_options);
-            //         $payment_options = array();
-            //     }
-            // }
-
-
             // $findcustomer = Customer::find(Session::get('customerId'));
             // if($findcustomer->email !=NULL){
             //    $data = array(
@@ -491,7 +217,7 @@ class PayNowController extends Controller
 
           Toastr::success('Thanks, Your order Save successfully', 'Success!');
           // return redirect('customer/order-complete/'.$order->id);
-          return redirect('customer/order/'.$order->id.'/payemnt')->with('order', $order);
+          return redirect('customer/order/'.$order->id.'/payemnt')->with('ggg', 'hello');
 
         }else{
             Toastr::error('Opps please shopping first', 'Cart Empty');
@@ -500,9 +226,11 @@ class PayNowController extends Controller
     }
 
     public function payment_pay(Request $request){
+
         $url =  url()->current();
         $url = explode('/', $url);
-        $order_id = $url[7];
+        $url = array_reverse($url);
+        $order_id = $url[1];
 
         $order = Order::where('orderIdPrimary', $order_id)->first();
         $extrashipping = Order::where('orderIdPrimary', $order_id)->first();
@@ -563,6 +291,28 @@ class PayNowController extends Controller
 
         Toastr::success('Thanks, Your order Save successfully', 'Success!');
         return redirect('customer/order-complete/'.$order->orderIdPrimary);
+    }
+
+    public function payment_pay_paypal(Request $request){
+
+        // -------------------------------------
+        $transFee = 0;
+        $order = Order::where('orderIdPrimary', $request->orderID)->first();
+
+        $details = $request->cdetails;
+        $email = $details['payer']['email_address'];
+        $payer_id = $details['payer']['payer_id'];
+        // -------------------------------------
+        $payment                 = new Payment();
+        $payment->orderId        = $order->orderIdPrimary;
+        $payment->paymentType    = $request->paymentType;
+        $payment->senderId       = $email;
+        $payment->transectionId  = $payer_id;
+        $payment->transFee       = $transFee;
+        $payment->status         = 'Unpaid';
+        $payment->save();
+        
+        return $payment;
 
     }
 

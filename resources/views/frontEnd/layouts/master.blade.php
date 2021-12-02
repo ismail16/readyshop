@@ -67,14 +67,13 @@
 </head>
 
 <body class="gotop">
-     @php
-         $subtotal=Cart::subtotal();
-         $subtotal=str_replace(',','',$subtotal);
-         $subtotal=str_replace('.00', '',$subtotal);
-         Session::put('totalprice',$subtotal);
-         @endphp
-
-    
+    @php
+        $subtotal=Cart::subtotal();
+        $subtotal=str_replace(',','',$subtotal);
+        $subtotal=str_replace('.00', '',$subtotal);
+        Session::put('totalprice',$subtotal);
+        Session::put('setting', \App\Contact::first());
+    @endphp 
      <div class="mobile-header-top">
         <div class="container">
              <div class="row">
@@ -113,6 +112,7 @@
                 </div>
             </div>
         </div>
+    }
     </div>
    <!-- Mobile header top End -->
    <section class="mobile-header-design hidden-lg hidden-md">

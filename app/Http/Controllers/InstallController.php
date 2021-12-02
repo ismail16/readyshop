@@ -44,9 +44,9 @@ class InstallController extends Controller
 
     public function purchase_code(Request $request)
     {
-        Helpers::setEnvironmentValue('SOFTWARE_ID','MzE0NDg1OTc=');
-        Helpers::setEnvironmentValue('BUYER_USERNAME',$request['username']);
-        Helpers::setEnvironmentValue('PURCHASE_CODE',$request['purchase_key']);
+        $this->setEnvironmentValue('SOFTWARE_ID','MzE0NDg1OTc=');
+        $this->setEnvironmentValue('BUYER_USERNAME',$request['username']);
+        $this->setEnvironmentValue('PURCHASE_CODE',$request['purchase_key']);
 
         // old set session
         // return redirect()->route('dmvf', ['purchase_key' => $request['purchase_key'], 'username' => $request['username']]);
@@ -55,6 +55,22 @@ class InstallController extends Controller
         session()->put('purchase_key', $request['purchase_key']);//pk
         session()->put('username', $request['username']);//un
         return redirect()->route('step3');
+    }
+
+    public static function setEnvironmentValue($envKey, $envValue)
+    {
+        $envFile = app()->environmentFilePath();
+        $str = file_get_contents($envFile);
+        $oldValue = env($envKey);
+        if (strpos($str, $envKey) !== false) {
+            $str = str_replace("{$envKey}={$oldValue}", "{$envKey}={$envValue}", $str);
+        } else {
+            $str .= "{$envKey}={$envValue}\n";
+        }
+        $fp = fopen($envFile, 'w');
+        fwrite($fp, $str);
+        fclose($fp);
+        return $envValue;
     }
 
     public function system_settings(Request $request)

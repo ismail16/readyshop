@@ -124,15 +124,15 @@
                                       </div>
                                      
                                       <div class="details-pro-price">
-                                         <span>৳ {{$productdetails->proNewprice}}</span>
+                                         <span>{{ session()->get('setting')->currency }} {{$productdetails->proNewprice}}</span>
                                          @if($productdetails->proOldprice)
-                                         <del>৳ {{$productdetails->proOldprice}}</del>
+                                         <del>{{ session()->get('setting')->currency }} {{$productdetails->proOldprice}}</del>
                                          @endif
                                       </div>
                                       
                                       <div class="paid-addition">
                                           @if($productdetails->aditionalshipping)
-                                          <p class="text-success"><i class="fa fa-truck"></i> Extra Shipping Charge ৳ {{$productdetails->aditionalshipping}}</p>
+                                          <p class="text-success"><i class="fa fa-truck"></i> Extra Shipping Charge {{ session()->get('setting')->currency }} {{$productdetails->aditionalshipping}}</p>
                                           @endif
                                       </div>
                                       <div class="details-quantity-area">
@@ -377,7 +377,7 @@
                                 <div class="hproduct-info">
                                     <p class="hproduct-name">  <a href="{{url('product-details/'.$value->id.'/'.$value->slug)}}">{{Str::limit($value->proName,40)}} </a></p> 
                                    <ul>
-                                     <li> <p class="hproduct-price">৳{{$value->proNewprice}} <span>@if($value->proOldprice)৳ 
+                                     <li> <p class="hproduct-price">{{ session()->get('setting')->currency }}{{$value->proNewprice}} <span>@if($value->proOldprice){{ session()->get('setting')->currency }} 
                                       {{$value->proOldprice}} 
                                     @endif</span></p></li>
                                      

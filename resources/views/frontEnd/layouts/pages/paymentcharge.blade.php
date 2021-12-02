@@ -12,7 +12,7 @@
        </div>
        <div class="cart_subtotal">
            <p>Subtotal</p>
-           <p class="cart_amount">৳ {{$subtotal}}</p>
+           <p class="cart_amount">{{ session()->get('setting')->currency }} {{$subtotal}}</p>
        </div>
        <div class="cart_subtotal ">
            <p>Shipping</p>
@@ -26,7 +26,7 @@
        </div>
        <div class="cart_subtotal">
            <p>Total</p>
-           <p class="cart_amount">৳  {{$subtotal+$shippingfee+$bkashfee}}</p>
+           <p class="cart_amount">{{ session()->get('setting')->currency }}  {{$subtotal+$shippingfee+$bkashfee}}</p>
        </div>
     </div>
 </div>

@@ -18,6 +18,7 @@
                 <thead>
                 <tr>
                   <th>Sl</th>
+                  <th>Currency</th>
                   <th>Phone</th>
                   <th>Email</th>
                   <th>Address</th>
@@ -29,6 +30,7 @@
                 	@foreach($show_datas as $key=>$value)
                 <tr>
                   <td>{{$loop->iteration}}</td>
+                  <td>{{$value->currency}}</td>
                   <td>{{$value->phone}}</td>
                   <td>{{$value->email}}</td>
                   <td>{!!($value->address) !!}</td>

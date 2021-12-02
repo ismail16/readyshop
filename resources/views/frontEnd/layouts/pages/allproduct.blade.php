@@ -60,7 +60,7 @@
                                     <div class="hproduct-info">
                                         
                                         <p class="hproduct-name">{{Str::limit($value->proName,25)}}</p>
-                                        <p class="hproduct-price">৳{{$value->proNewprice}} <span>@if($value->proOldprice)৳ 
+                                        <p class="hproduct-price">{{ session()->get('setting')->currency }}{{$value->proNewprice}} <span>@if($value->proOldprice){{ session()->get('setting')->currency }} 
                                           @php $offertaka= (($value->proOldprice*$value->proNewprice)/100);
                                            $oldprice = $offertaka+$value->proNewprice; 
                                           @endphp 

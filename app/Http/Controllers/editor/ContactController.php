@@ -20,6 +20,7 @@ class ContactController extends Controller
     		'status'=>'required',
     	]);
     	$store_data = new Contact();
+        $store_data->currency   =  $request->currency;
         $store_data->phone   =  $request->phone;
         $store_data->email   =  $request->email;
         $store_data->address =  $request->address;
@@ -50,6 +51,7 @@ class ContactController extends Controller
     		'status'=>'required',
         ]);
         $update_data = Contact::find($request->hidden_id);
+        $update_data->currency   =  $request->currency;
         $update_data->phone   =  $request->phone;
         $update_data->email   =  $request->email;
         $update_data->address =  $request->address;

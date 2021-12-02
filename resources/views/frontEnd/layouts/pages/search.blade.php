@@ -15,7 +15,7 @@
      <td>
       <a href="{{url('product-details/'.$show_data->id.'/'.$show_data->slug)}}">
         {{$show_data->proName}}
-       <span>৳ {{$show_data->proNewprice}}</span>
+       <span>{{ session()->get('setting')->currency }} {{$show_data->proNewprice}}</span>
       </a>
     </td>
      <td>

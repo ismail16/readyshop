@@ -46,7 +46,7 @@
                                     </td>
                                       <td><img src="{{asset($cproduct->options->image)}}" style="width: 50px;height:50px" alt=""></td>
                                       <td> <a href="{{'product-details/'.$cproduct->id}}" class="pcart-name" target="_blank">{{$cproduct->name}}</a></td>
-                                      <td>৳ {{$cproduct->price}}</td>
+                                      <td>{{ session()->get('setting')->currency }} {{$cproduct->price}}</td>
                                       <td class="text-left">{!! $cproduct->options->description !!}</td>
                                       <td class="text-left"><a href="{{url('compare-product-add/'.$cproduct->id.'/'.$cproduct->rowId)}}" class="btn btn-success">Add To Cart</a></td>
                                     </tr>

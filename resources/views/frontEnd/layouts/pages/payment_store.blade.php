@@ -29,6 +29,7 @@
             <div class="text-center alert-warning">
                 <span class="h5">Total Payment  - ${{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}}</span>
             </div>
+            {{ $order }}
           </div>
          <div class="card p-2">
             <div class="order_wrapper">
@@ -66,7 +67,6 @@
                             <div class="">
                                 <img class="img-fluid float-right" src="{{ asset('public/images/card.png') }}">
                             </div>
-
                             <form role="form" action="{{url('customer/order/payemnt/stripe')}}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{$StripeSet->PublishableKey}}" id="payment-form">
                                 @csrf
                                 <input type="hidden" name="orderID" value="{{ $order->orderIdPrimary }}">
@@ -111,13 +111,7 @@
                             <form role="form" action="{{ route('payment_pay_store') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="paymentType" value="cash_on_delivery">
-                                <input type="hidden" name="order" value="{{ $order }}">
-
-                               <!--  <div class="alert alert-success mt-2 mb-2 text-center">
-                                  <div class="text-center alert-warning">
-                                      <p style="font-size: 11px;">[N.B Shipping Cost is Added]</p>
-                                  </div>
-                                </div> -->
+                                <input type="hidden" name="orderID" value="{{ $order->orderIdPrimary }}">
                                 <div class="order_button mt-2">
                                     <button type="submit" class="btn btn-primary">Order Confirmed</button>
                                 </div>
@@ -158,48 +152,6 @@ $("#payments").change(function(){
     }
 })
 </script>
-
-
-<script src="https://www.paypal.com/sdk/js?client-id={{$PaypalSet->ClientId}}&currency={{$PaypalSet->currency}}"></script>
-<script>
-  paypal.Buttons({
-    createOrder: function(data, actions) {
-      // Set up the transaction
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: {{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}},
-              currency: 'USD'
-          }
-        }],
-      });
-    },
-    onApprove: function(data, actions) {
-      // Capture the funds from the transaction
-      return actions.order.capture().then(function(details) {
-          // Show a success message to your buyer
-          var orderId = "";
-          var paymentType = "Paypal";
-          var senderId = "null";
-          var transectionId = "";
-          $.ajax({
-            url: "gggggg",
-            method: "POST",
-            dataType: "JSON",
-            data: {orderId: orderId, paymentType: paymentType, senderId: senderId, transectionId: transectionId, _token: '{{csrf_token()}}'},
-            success: function (res) {
-              console.log(res);
-              Swal.fire('Transaction completed by ' + details.payer.name.given_name + '! Please check your mail');
-              window.setTimeout(function () {
-                window.location = 'ssssssssssss';
-              }, 3000);
-            }
-          });
-        });
-    }
-  }).render('#paypal-button-container');
-</script>
-
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
@@ -258,6 +210,45 @@ $("#payments").change(function(){
         }
 
     });
+</script>
+
+
+<script src="https://www.paypal.com/sdk/js?client-id={{$PaypalSet->ClientId}}&currency={{$PaypalSet->currency}}"></script>
+<script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      // Set up the transaction
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: {{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}},
+            currency: 'USD'
+          }
+        }],
+      });
+    },
+    onApprove: function(data, actions) {
+      // Capture the funds from the transaction
+      return actions.order.capture().then(function(details) {
+          // Show a success message to your buyer
+          var orderID = "{{ $order->orderIdPrimary }}";
+          var paymentType = "Paypal";
+          $.ajax({
+            url: "{{route('payment_pay_paypal')}}",
+            method: "POST",
+            dataType: "JSON",
+            data: {cdetails:details, orderID: orderID, paymentType: paymentType, _token: '{{csrf_token()}}'},
+            success: function (res) {
+              toastr.success('Thanks, Your order Save successfully', 'Success!')
+              window.setTimeout(function () {
+                window.location = "{{route('order_complete', $order->orderIdPrimary)}}"; 
+              }, 2000);
+            }
+          });
+
+        });
+    }
+  }).render('#paypal-button-container');
 </script>
 
 @endsection

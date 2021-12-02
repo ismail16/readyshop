@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 17, 2021 at 06:07 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Dec 02, 2021 at 07:51 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `marscode_readyshop`
+-- Database: `readyshop_db`
 --
 
 -- --------------------------------------------------------
@@ -721,6 +721,28 @@ INSERT INTO `carts` (`id`, `customer_id`, `product_id`, `product_size`, `product
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cash_on_delivery_sets`
+--
+
+CREATE TABLE `cash_on_delivery_sets` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_on_delivery_sets`
+--
+
+INSERT INTO `cash_on_delivery_sets` (`id`, `title`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Cash On Delivery', 'Set Cash On Delivery !', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 
@@ -868,6 +890,7 @@ INSERT INTO `compares` (`id`, `product_id`, `quantity`, `created_at`, `updated_a
 
 CREATE TABLE `contacts` (
   `id` int(10) UNSIGNED NOT NULL,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '$',
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -881,8 +904,8 @@ CREATE TABLE `contacts` (
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `phone`, `email`, `address`, `maplink`, `status`, `created_at`, `updated_at`) VALUES
-(2, '01700000000', 'readyshop@gmail.com', 'demo address , demo address ,demo address', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7299.517422157513!2d90.20379478867078!3d23.8271777398172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755ec680eff6e4b%3A0x785e77d72a33f0e3!2sKhaser%20Char%20Bazar!5e0!3m2!1sen!2sbd!4v1636187667480!5m2!1sen!2sbd\" width=\"400\" height=\"300\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>', 1, '2021-09-08 09:46:38', '2021-11-06 08:38:19');
+INSERT INTO `contacts` (`id`, `currency`, `phone`, `email`, `address`, `maplink`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Tk', '01700000000', 'readyshop@gmail.com', 'demo address , demo address ,demo address', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7299.517422157513!2d90.20379478867078!3d23.8271777398172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755ec680eff6e4b%3A0x785e77d72a33f0e3!2sKhaser%20Char%20Bazar!5e0!3m2!1sen!2sbd!4v1636187667480!5m2!1sen!2sbd\" width=\"400\" height=\"300\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>', 1, '2021-09-08 09:46:38', '2021-12-02 06:14:02');
 
 -- --------------------------------------------------------
 
@@ -962,6 +985,7 @@ CREATE TABLE `createpages` (
 
 INSERT INTO `createpages` (`id`, `title`, `slug`, `text`, `page_id`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Privacy Policy', 'privacy-policy', '<p>Privacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy PolicyPrivacy Policy<br></p>', 2, 1, '2021-11-05 10:22:39', '2021-11-05 10:22:39');
+
 -- --------------------------------------------------------
 
 --
@@ -1054,7 +1078,8 @@ INSERT INTO `customers` (`id`, `fullName`, `phoneNumber`, `address`, `email`, `p
 (44, 'gg', '0888888888888', NULL, 'g@g.com', '$2y$10$1BcUoFcfeEyPcf3MowkG5enPCP6tk64Eqs1Sc4iEF9oC330ZbpypC', NULL, '1', NULL, 'public/uploads/avatar/avatar.png', NULL, NULL, 1, '2021-10-31 13:20:01', '2021-10-31 13:20:01'),
 (45, 'imran kabir', NULL, NULL, 'km@km.com', '$2y$10$44WqzDrIAgzt6yW1jwd2f.c.4FOdabdHmNxcx1xaURTn6RKUMvkSO', NULL, '1', NULL, 'public/uploads/avatar/avatar.png', NULL, NULL, 1, '2021-11-02 12:25:02', '2021-11-02 12:25:02'),
 (46, 'mars', '010000000', 'qqqqq', 'marscodeit2019@gmail.com', '$2y$10$aoUawogASa9serdp6kWCrOObVxtX6ysQW8ujnrjNV3IKW.J0wuF8y', NULL, '1', '584476', 'public/uploads/customer/1635879728-image_picker1592276502532428393.jpg', NULL, NULL, 1, '2021-11-02 18:40:12', '2021-11-03 04:31:57'),
-(47, 'kabir', '01787816', NULL, 'kabir61@gmail.com', '$2y$10$F6Xb55MFtRF3dK8xIU5wM.fIGNxzM1qZ3Ge.gwTPlEHRiGaa74saG', NULL, '1', NULL, 'public/uploads/avatar/avatar.png', NULL, NULL, 1, '2021-11-06 06:02:18', '2021-11-06 06:02:18');
+(47, 'kabir', '01787816', NULL, 'kabir61@gmail.com', '$2y$10$F6Xb55MFtRF3dK8xIU5wM.fIGNxzM1qZ3Ge.gwTPlEHRiGaa74saG', NULL, '1', NULL, 'public/uploads/avatar/avatar.png', NULL, NULL, 1, '2021-11-06 06:02:18', '2021-11-06 06:02:18'),
+(48, 'Ismail', '+1 (329) 891-5129', NULL, 'ismail32cse@gmail.com', '$2y$10$udsJ2dPz2l5LVIL/w7gLuOnyPGp4LBBqzkS8OR4CtxOj0D0svuTE.', NULL, '1', NULL, 'public/uploads/avatar/avatar.png', NULL, NULL, 1, '2021-11-24 04:06:32', '2021-11-24 04:06:32');
 
 -- --------------------------------------------------------
 
@@ -1323,7 +1348,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (58, '2021_08_18_002037_create_carts_table', 9),
 (59, '2021_08_23_153630_create_wishlists_table', 10),
 (60, '2021_08_23_182805_create_compares_table', 11),
-(61, '2021_09_11_172834_create_paymentmethods_table', 12);
+(61, '2021_09_11_172834_create_paymentmethods_table', 12),
+(63, '2021_11_24_123450_create_paypal_sets_table', 13),
+(64, '2021_11_24_123500_create_stripe_sets_table', 13),
+(65, '2021_11_24_123520_create_cash_on_delivery_sets_table', 13);
 
 -- --------------------------------------------------------
 
@@ -1405,7 +1433,26 @@ INSERT INTO `orderdetails` (`orderDetails`, `orderId`, `ProductId`, `productName
 (24, 15, 365, 'Huion Kamvas Pro 24 Pen Display', '', '', 95000.00, 70000, 1, '2021-11-19 10:42:12', '2021-11-19 10:42:12'),
 (25, 16, 62, 'Ocean Electric Air Fryer 3.5LTR. 1450W', '', '', 7720.00, 7334, 1, '2021-11-20 06:19:02', '2021-11-20 06:19:02'),
 (26, 17, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-20 06:19:32', '2021-11-20 06:19:32'),
-(27, 18, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-21 09:15:43', '2021-11-21 09:15:43');
+(27, 18, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-21 09:15:43', '2021-11-21 09:15:43'),
+(28, 19, 312, 'Mini Wireless Bluetooth 4.1 Stereo In-Ear Headset Earphone', '', '', 350.00, 333, 1, '2021-11-28 04:45:56', '2021-11-28 04:45:56'),
+(29, 20, 345, 'Luxury Rhinestone Bracelet Ladies Quartz Watches Fashion Watch For Women', '', '', 185.00, 176, 1, '2021-11-28 05:01:51', '2021-11-28 05:01:51'),
+(30, 21, 62, 'Ocean Electric Air Fryer 3.5LTR. 1450W', '', '', 7720.00, 7334, 1, '2021-11-28 05:14:28', '2021-11-28 05:14:28'),
+(31, 22, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-28 09:16:16', '2021-11-28 09:16:16'),
+(32, 23, 60, 'Ocean Automatic Electric Kettle 1.7LTR. Black', '', '', 1910.00, 1815, 1, '2021-11-28 09:17:59', '2021-11-28 09:17:59'),
+(33, 24, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-28 09:24:07', '2021-11-28 09:24:07'),
+(34, 25, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-29 06:05:18', '2021-11-29 06:05:18'),
+(35, 26, 345, 'Luxury Rhinestone Bracelet Ladies Quartz Watches Fashion Watch For Women', '', '', 185.00, 176, 1, '2021-11-29 06:37:03', '2021-11-29 06:37:03'),
+(36, 27, 311, 'P47 - Top Quality Wireless Bluetooth headphone (5.0+EDR) Latest Version', '', '', 450.00, 428, 1, '2021-11-29 09:51:08', '2021-11-29 09:51:08'),
+(37, 28, 63, 'Ocean Electric Induction Cooker IHW', '', '', 4820.00, 4579, 1, '2021-11-29 09:56:04', '2021-11-29 09:56:04'),
+(38, 29, 60, 'Ocean Automatic Electric Kettle 1.7LTR. Black', '', '', 1910.00, 1815, 1, '2021-11-29 10:16:14', '2021-11-29 10:16:14'),
+(39, 30, 62, 'Ocean Electric Air Fryer 3.5LTR. 1450W', '', '', 7720.00, 7334, 1, '2021-11-29 10:31:49', '2021-11-29 10:31:49'),
+(40, 31, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-29 10:36:44', '2021-11-29 10:36:44'),
+(41, 32, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-30 03:38:03', '2021-11-30 03:38:03'),
+(42, 33, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-30 05:50:15', '2021-11-30 05:50:15'),
+(43, 34, 60, 'Ocean Automatic Electric Kettle 1.7LTR. Black', '', '', 1910.00, 1815, 1, '2021-11-30 08:36:48', '2021-11-30 08:36:48'),
+(44, 35, 345, 'Luxury Rhinestone Bracelet Ladies Quartz Watches Fashion Watch For Women', '', '', 185.00, 176, 1, '2021-11-30 08:55:37', '2021-11-30 08:55:37'),
+(45, 36, 60, 'Ocean Automatic Electric Kettle 1.7LTR. Black', '', '', 1910.00, 1815, 1, '2021-11-30 09:27:30', '2021-11-30 09:27:30'),
+(46, 37, 61, 'Ocean Vaccum Flask 0.75LTR. With Strip', '', '', 750.00, 713, 1, '2021-11-30 09:33:24', '2021-11-30 09:33:24');
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1496,26 @@ INSERT INTO `orders` (`orderIdPrimary`, `customerId`, `shippingId`, `orderTotal`
 (15, 3, 15, 95150.00, NULL, 0, 743467, '1', 0, '2021-11-19 10:42:12', '2021-11-19 10:42:12'),
 (16, 3, 16, 7770.00, NULL, 0, 215333, '1', 0, '2021-11-20 06:19:02', '2021-11-20 06:19:02'),
 (17, 3, 17, 800.00, NULL, 0, 652407, '1', 0, '2021-11-20 06:19:32', '2021-11-20 06:19:32'),
-(18, 3, 18, 800.00, NULL, 0, 686382, '1', 0, '2021-11-21 09:15:43', '2021-11-21 09:15:43');
+(18, 3, 18, 800.00, NULL, 0, 686382, '1', 0, '2021-11-21 09:15:43', '2021-11-21 09:15:43'),
+(19, 48, 19, 400.00, NULL, 0, 232324, '1', 0, '2021-11-28 04:45:56', '2021-11-28 04:45:56'),
+(20, 48, 20, 235.00, NULL, 0, 925534, '1', 0, '2021-11-28 05:01:51', '2021-11-28 05:01:51'),
+(21, 48, 21, 7770.00, NULL, 0, 651914, '1', 0, '2021-11-28 05:14:28', '2021-11-28 05:14:28'),
+(22, 48, 22, 800.00, NULL, 0, 976716, '1', 0, '2021-11-28 09:16:16', '2021-11-28 09:16:16'),
+(23, 48, 23, 1960.00, NULL, 0, 872029, '1', 0, '2021-11-28 09:17:59', '2021-11-28 09:17:59'),
+(24, 48, 24, 800.00, NULL, 0, 497837, '1', 0, '2021-11-28 09:24:07', '2021-11-28 09:24:07'),
+(25, 48, 25, 800.00, NULL, 0, 762485, '1', 0, '2021-11-29 06:05:17', '2021-11-29 06:05:17'),
+(26, 48, 26, 235.00, NULL, 0, 304370, '1', 0, '2021-11-29 06:37:03', '2021-11-29 06:37:03'),
+(27, 48, 27, 500.00, NULL, 0, 118183, '1', 0, '2021-11-29 09:51:08', '2021-11-29 09:51:08'),
+(28, 48, 28, 4870.00, NULL, 0, 604573, '1', 0, '2021-11-29 09:56:03', '2021-11-29 09:56:03'),
+(29, 48, 29, 1960.00, NULL, 0, 931638, '1', 0, '2021-11-29 10:16:14', '2021-11-29 10:16:14'),
+(30, 48, 30, 7770.00, NULL, 0, 292989, '1', 0, '2021-11-29 10:31:49', '2021-11-29 10:31:49'),
+(31, 48, 31, 800.00, NULL, 0, 265122, '1', 0, '2021-11-29 10:36:44', '2021-11-29 10:36:44'),
+(32, 48, 32, 800.00, NULL, 0, 118751, '1', 0, '2021-11-30 03:38:03', '2021-11-30 03:38:03'),
+(33, 48, 33, 800.00, NULL, 0, 462101, '1', 0, '2021-11-30 05:50:15', '2021-11-30 05:50:15'),
+(34, 48, 34, 1960.00, NULL, 0, 808964, '1', 0, '2021-11-30 08:36:48', '2021-11-30 08:36:48'),
+(35, 48, 35, 235.00, NULL, 0, 825267, '2', 0, '2021-11-30 08:55:36', '2021-11-30 08:56:53'),
+(36, 48, 36, 1960.00, NULL, 0, 457992, '2', 0, '2021-11-30 09:27:30', '2021-11-30 09:31:10'),
+(37, 48, 37, 800.00, NULL, 0, 114087, '1', 0, '2021-11-30 09:33:24', '2021-11-30 09:33:24');
 
 -- --------------------------------------------------------
 
@@ -1590,7 +1656,53 @@ INSERT INTO `payments` (`paymentIdPrimary`, `orderId`, `paymentType`, `senderId`
 (15, 15, 'online', NULL, '61977f84b95c3', 'Unpaid', 0, '2021-11-19 10:42:12', '2021-11-19 10:42:12'),
 (16, 16, 'online', NULL, '61989356694a6', 'Unpaid', 0, '2021-11-20 06:19:02', '2021-11-20 06:19:02'),
 (17, 17, 'online', NULL, '61989374e7457', 'Unpaid', 0, '2021-11-20 06:19:32', '2021-11-20 06:19:32'),
-(18, 18, 'online', NULL, '619a0e3f93c70', 'Unpaid', 0, '2021-11-21 09:15:43', '2021-11-21 09:15:43');
+(18, 18, 'online', NULL, '619a0e3f93c70', 'Unpaid', 0, '2021-11-21 09:15:43', '2021-11-21 09:15:43'),
+(19, 24, 'cash_on_delivery', NULL, '61a34fd3e1a42', 'Unpaid', 0, '2021-11-28 09:45:55', '2021-11-28 09:45:55'),
+(20, 25, 'stripe', NULL, '61a473546bd06', 'Unpaid', 0, '2021-11-29 06:29:40', '2021-11-29 06:29:40'),
+(21, 26, 'stripe', NULL, '61a4753224857', 'Unpaid', 0, '2021-11-29 06:37:38', '2021-11-29 06:37:38'),
+(22, 27, 'stripe', NULL, '61a4a2c93120f', 'Unpaid', 0, '2021-11-29 09:52:09', '2021-11-29 09:52:09'),
+(23, 28, 'stripe', NULL, '61a4a3ca9dc14', 'Unpaid', 0, '2021-11-29 09:56:26', '2021-11-29 09:56:26'),
+(24, 29, 'stripe', NULL, '61a4a89ccef2a', 'Unpaid', 0, '2021-11-29 10:17:00', '2021-11-29 10:17:00'),
+(25, 30, 'stripe', NULL, '61a4ac390893d', 'Unpaid', 0, '2021-11-29 10:32:25', '2021-11-29 10:32:25'),
+(26, 31, 'stripe', 'eeeee', 'txn_3K180JIxvC9PUnDX27mROkax', 'Unpaid', 0, '2021-11-29 11:26:39', '2021-11-29 11:26:39'),
+(27, 31, 'stripe', 'eeeee', 'txn_3K187CIxvC9PUnDX13KAIgTg', 'Unpaid', 0, '2021-11-29 11:33:47', '2021-11-29 11:33:47'),
+(28, 31, 'stripe', 'eeee', 'txn_3K188uIxvC9PUnDX0m6n5Rqi', 'Unpaid', 0, '2021-11-29 11:35:32', '2021-11-29 11:35:32'),
+(29, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:44:32', '2021-11-30 08:44:32'),
+(30, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:45:24', '2021-11-30 08:45:24'),
+(31, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:48:29', '2021-11-30 08:48:29'),
+(32, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:51:15', '2021-11-30 08:51:15'),
+(33, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:51:53', '2021-11-30 08:51:53'),
+(34, 34, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:52:30', '2021-11-30 08:52:30'),
+(35, 35, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 08:55:55', '2021-11-30 08:55:55'),
+(36, 36, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 09:30:18', '2021-11-30 09:30:18'),
+(37, 37, 'stripe', 'Ismail', 'txn_3K1SjBIxvC9PUnDX2B9Qzigr', 'Unpaid', 0, '2021-11-30 09:34:21', '2021-11-30 09:34:21'),
+(38, 37, 'Paypal', 'sb-f2p7i979446@business.example.com', 'YDFYJFVP3QUPG', 'Unpaid', 0, '2021-11-30 09:40:31', '2021-11-30 09:40:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paypal_sets`
+--
+
+CREATE TABLE `paypal_sets` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ClientId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Secret` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Status` tinyint(4) NOT NULL DEFAULT 0,
+  `SandboxStatus` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `paypal_sets`
+--
+
+INSERT INTO `paypal_sets` (`id`, `title`, `ClientId`, `currency`, `Secret`, `Description`, `Status`, `SandboxStatus`, `created_at`, `updated_at`) VALUES
+(1, 'Paypal', 'ASQt_1BoaUsbC8yy8yGDZ3M2D70Bt3eoBO5Mq7LijI0ISR-eYBp1GPe5xhtC7fWtfpakoB_jvAN60_W2', 'USD', 'EIMJsK9A9BndaxgCHj1qTQhKdpsypwhpsSvfA32vlXn14nGtXMMMMdhU04bsZa6-FIFsL9fP6LRor03u', 'Set Paypal Account !!', 1, 1, NULL, '2021-11-24 08:53:45');
 
 -- --------------------------------------------------------
 
@@ -2497,7 +2609,8 @@ INSERT INTO `products` (`id`, `proCategory`, `proSubcategory`, `proChildCategory
 (367, 4, NULL, NULL, 1, 'Demo New Product', 'demo-new-product', 40000, NULL, 50000, '1300', '<p>ytryhytjl</p>', NULL, '10', '100', NULL, NULL, NULL, NULL, 1, 'https://www.youtube.com/watch?v=N5H-qXiCjWM', '10', 1, '2021-10-06 16:11:45', '2021-10-07 05:14:33'),
 (368, 4, NULL, NULL, 1, 'Demo New Product', 'demo-new-product', 40000, '55500', 50000, '1300', '<p>mjhnh</p>', NULL, '10', '100', NULL, NULL, NULL, NULL, 1, 'https://www.youtube.com/watch?v=N5H-qXiCjWM', '10', 1, '2021-10-06 16:12:49', '2021-10-06 16:12:49'),
 (369, 4, NULL, NULL, 1, 'Demo New Product', 'demo-new-product', 40000, NULL, 50000, '1300', '<p>ujuk,j</p>', NULL, '8', '100', NULL, NULL, NULL, NULL, 1, 'https://www.youtube.com/watch?v=N5H-qXiCjWM', '10', 1, '2021-10-06 16:13:11', '2021-11-03 13:26:00'),
-(370, 4, 26, NULL, 3, 'Top Product Demo', 'top-product-demo', 5000, '5000', 5000, '1355', '<p>trhetuerpfk\'ldgv;mfdlgbnfgbgjkgbf</p>', NULL, '2', '100', NULL, NULL, NULL, NULL, 1, 'https://www.youtube.com/watch?v=N5H-qXiCjWM', '5', 1, '2021-10-07 03:46:28', '2021-11-03 13:09:11'),
+(370, 4, 26, NULL, 3, 'Top Product Demo', 'top-product-demo', 5000, '5000', 5000, '1355', '<p>trhetuerpfk\'ldgv;mfdlgbnfgbgjkgbf</p>', NULL, '2', '100', NULL, NULL, NULL, NULL, 1, 'https://www.youtube.com/watch?v=N5H-qXiCjWM', '5', 1, '2021-10-07 03:46:28', '2021-11-03 13:09:11');
+INSERT INTO `products` (`id`, `proCategory`, `proSubcategory`, `proChildCategory`, `proBrand`, `proName`, `slug`, `proPurchaseprice`, `proOldprice`, `proNewprice`, `proCode`, `proDescription`, `shortDescription`, `proQuantity`, `aditionalshipping`, `dealdate`, `fullpaid`, `deal`, `feature`, `bestsell`, `video`, `unit`, `status`, `created_at`, `updated_at`) VALUES
 (371, 1, 73, NULL, 2, 'MSI B560M PRO-VDH WIFI Intel 10th and 11th Gen Micro ATX Motherboard', 'msi-b560m-pro-vdh-wifi-intel-10th-and-11th-gen-micro-atx-motherboard', 10000, NULL, 13000, NULL, '<table class=\"table table-bordered\" style=\"background-color: rgb(255, 255, 255); font-size: 1rem;\"><tbody><tr><td>asdf</td><td>adsfasf</td></tr></tbody></table><p style=\"line-height: 1.043em; margin-right: 0px; margin-bottom: 1em; margin-left: 0px;\"><br></p><ul><li><span class=\"attr-name J-attr-name\" title=\"Max. LAN Data Rate\" data-spm-anchor-id=\"a2700.wholesale.prilinga1e.i0.3f5f25a4WG3Bun\" style=\"margin-bottom: 0px;\">Max. LAN Data Rate: 150Mbp</span>s</li><li><span class=\"attr-name J-attr-name\" title=\"Standards And Protocols\" data-spm-anchor-id=\"a2700.wholesale.prilinga1e.i3.3f5f25a4WG3Bun\" style=\"\">Standards And Protocols:</span><div class=\"ellipsis\" title=\"Wi-Fi 802.11g, Wi-Fi 802.11b, Wi-Fi 802.11n, Wi-Fi 802.11ac, Wi-Fi 802.11a\" data-spm-anchor-id=\"a2700.wholesale.prilinga1e.i4.3f5f25a4WG3Bun\" style=\"margin-bottom: 0px;\">Wi-Fi 802.11g, Wi-Fi 802.11b, Wi-Fi 802.11n, Wi-Fi 802.11ac</div></li><li>4G LTE Mobile WIFI</li><li style=\"margin-bottom: 0px;\"><span class=\"attr-name J-attr-name\" title=\"Wired Transfer Rate\" data-spm-anchor-id=\"a2700.wholesale.prilinga1e.i7.3f5f25a4WG3Bun\" style=\"margin-bottom: 0px;\">Wired Transfer Rate:-&nbsp;</span>150 Mbps</li></ul><p style=\"margin-right: 0px; margin-bottom: 15px; margin-left: 0px;\"><br style=\"height: 1px; display: block;\"></p><h3 style=\"line-height: 1.043em; margin-right: 0px; margin-bottom: 1em; margin-left: 0px;\">OLAX MF980L 4G 150Mbps WIFI Router Hotspot Mifis with LCD price in bd</h3><ul style=\"padding-left: 2rem;\"><li style=\"margin-bottom: 0px;\"><span data-spm-anchor-id=\"a2700.wholesale.pronpeci14.i0.3f5f25a4WG3Bun\" style=\"margin-bottom: 0px;\">Download speed up to 150Mbps and upload speed up to 50 Mbps.</span>4G Data and HD Voice even on your 2G/3G Smartphones: Enjoy 4G VoLTE Smartphone services on your 2G / 3G Smartphones.Connect &amp; Share: Recommended to connect up to 10 wi-fi enabled devices (smartphone, Laptops, Tablets and even Smart TVs).Powerful Battery: Best in class battery (2100mAh) supports 8 – 10</li></ul>', '<ul><li><span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">It is a long established fact that</span></li><li><span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">reader will be distracted by the readable</span></li><li><span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">using Lorem Ipsum is that it has</span></li><li><span style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;\">of letters, as opposed to using</span><br></li></ul>', '199', '100', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2021-11-03 12:14:35', '2021-11-17 16:02:26');
 
 -- --------------------------------------------------------
@@ -2821,7 +2934,26 @@ INSERT INTO `shippings` (`shippingPrimariId`, `customerId`, `name`, `phone`, `ad
 (15, 3, 'Dhaka, Bangladesh', '01750843963', 'Dhaka, Bangladesh', '20', 'Manda Upazila', 150, NULL, '2021-11-19 10:42:12', '2021-11-19 10:42:12'),
 (16, 3, 'Dhaka, Bangladesh', '01750843963', 'Dhaka, Bangladesh', '20', 'Manda Upazila', 50, NULL, '2021-11-20 06:19:02', '2021-11-20 06:19:02'),
 (17, 3, 'Dhaka, Bangladesh', '01750843963', 'Dhaka, Bangladesh', '20', 'Manda Upazila', 50, NULL, '2021-11-20 06:19:32', '2021-11-20 06:19:32'),
-(18, 3, 'Dhaka, Bangladesh', '01750843963', 'Dhaka, Bangladesh', '20', 'Manda Upazila', 50, NULL, '2021-11-21 09:15:43', '2021-11-21 09:15:43');
+(18, 3, 'Dhaka, Bangladesh', '01750843963', 'Dhaka, Bangladesh', '20', 'Manda Upazila', 50, NULL, '2021-11-21 09:15:43', '2021-11-21 09:15:43'),
+(19, 48, 'Dana Lester', '+1 (976) 375-3524', 'Dolorem dolor et err', '60', 'Kushtia Sadar', 50, 'Ad porro dolorem et', '2021-11-28 04:45:56', '2021-11-28 04:45:56'),
+(20, 48, 'Isaiah Schneider', '+1 (402) 616-3212', 'Qui exercitation ut', '50', 'Rangamati Sadar Upazila', 50, 'At qui aut nostrum f', '2021-11-28 05:01:50', '2021-11-28 05:01:50'),
+(21, 48, 'Erich Mclean', '+1 (831) 433-9583', 'Ex culpa iste neces', '32', 'Badarganj', 50, 'Aliquip iusto id in', '2021-11-28 05:14:28', '2021-11-28 05:14:28'),
+(22, 48, 'Curran Gordon', '+1 (817) 273-8188', 'Cupidatat cupiditate', '11', 'Rupganj Upazila', 50, 'Aut rerum laboriosam', '2021-11-28 09:16:16', '2021-11-28 09:16:16'),
+(23, 48, 'Damon Mcintosh', '+1 (453) 507-9864', 'Eiusmod dolore exped', '28', 'Kurigram Sadar', 50, 'Excepturi inventore', '2021-11-28 09:17:59', '2021-11-28 09:17:59'),
+(24, 48, 'Benjamin Dickerson', '+1 (358) 404-8573', 'Eiusmod tempor volup', '27', 'Sadullapur', 50, 'Veniam in eaque ad', '2021-11-28 09:24:07', '2021-11-28 09:24:07'),
+(25, 48, 'Ciara Benjamin', '+1 (824) 702-7414', 'Mollitia ut in Nam c', '40', 'Bandarban Sadar', 50, 'Quis nisi non fugit', '2021-11-29 06:05:17', '2021-11-29 06:05:17'),
+(26, 48, 'Alexis Herman', '+1 (353) 896-8548', 'Quasi pariatur Corr', '25', 'Belkuchi Upazila', 50, 'Sequi iste vel delec', '2021-11-29 06:37:03', '2021-11-29 06:37:03'),
+(27, 48, 'Hedwig Oneil', '+1 (298) 101-2373', 'Et irure laudantium', '16', 'Jhenaigati Upazila', 50, 'Qui delectus sequi', '2021-11-29 09:51:08', '2021-11-29 09:51:08'),
+(28, 48, 'Malik Patterson', '+1 (364) 736-9431', 'Cupiditate aut conse', '62', 'Mujib Nagar Upazila', 50, 'Molestiae autem expl', '2021-11-29 09:56:03', '2021-11-29 09:56:03'),
+(29, 48, 'Grace Daugherty', '+1 (664) 438-9186', 'Iste incididunt quas', '53', 'Bishwamvarpur', 50, 'Ipsa labore hic fug', '2021-11-29 10:16:14', '2021-11-29 10:16:14'),
+(30, 48, 'Armand Hobbs', '+1 (349) 456-2617', 'Deserunt itaque et a', '25', 'Shahjadpur Upazila', 50, 'Iusto in voluptatibu', '2021-11-29 10:31:49', '2021-11-29 10:31:49'),
+(31, 48, 'Sebastian Farrell', '+1 (339) 727-1573', 'Odio voluptatum duci', '44', 'Laksam Upazila', 50, 'Possimus ad sit er', '2021-11-29 10:36:44', '2021-11-29 10:36:44'),
+(32, 48, 'Germaine Riley', '+1 (104) 342-2249', 'Reiciendis quo offic', '10', 'Trishal', 50, 'Tenetur itaque a dis', '2021-11-30 03:38:03', '2021-11-30 03:38:03'),
+(33, 48, 'Quyn Knight', '+1 (521) 297-3287', 'Nulla alias quia aut', '63', 'Narail-S Upazilla', 50, 'Consequat Inventore', '2021-11-30 05:50:15', '2021-11-30 05:50:15'),
+(34, 48, 'Petra Cohen', '+1 (188) 644-4354', 'Vel omnis sit dolore', '50', 'Langadu Upazila', 50, 'Voluptates omnis qui', '2021-11-30 08:36:48', '2021-11-30 08:36:48'),
+(35, 48, 'Elton Oneal', '+1 (908) 252-2324', 'Laboris et duis est', '44', 'Comilla Sadar Upazila', 50, 'Itaque qui fugit ex', '2021-11-30 08:55:36', '2021-11-30 08:55:36'),
+(36, 48, 'Abdul Acosta', '+1 (268) 808-8074', 'Et reprehenderit ist', '18', 'Sariakandi', 50, 'Qui possimus assume', '2021-11-30 09:27:30', '2021-11-30 09:27:30'),
+(37, 48, 'Alexa Foley', '+1 (309) 862-8069', 'In possimus non sun', '17', 'Tangail Sadar Upazila', 50, 'Rem at vero fugiat', '2021-11-30 09:33:24', '2021-11-30 09:33:24');
 
 -- --------------------------------------------------------
 
@@ -2916,6 +3048,31 @@ CREATE TABLE `social_customers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stripe_sets`
+--
+
+CREATE TABLE `stripe_sets` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SecretKey` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PublishableKey` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Status` tinyint(4) NOT NULL DEFAULT 0,
+  `SandboxStatus` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stripe_sets`
+--
+
+INSERT INTO `stripe_sets` (`id`, `title`, `SecretKey`, `PublishableKey`, `Description`, `Status`, `SandboxStatus`, `created_at`, `updated_at`) VALUES
+(1, 'Stripe', 'sk_test_HETvnHVWPE2yxioaiobPi25k00uvh64zC3', 'pk_test_T5wFaZtvqWHXkrOcBvUSC7Gl00UkI7ZYIk', 'Set Stripe Account !!', 1, 1, NULL, '2021-11-30 09:36:30');
 
 -- --------------------------------------------------------
 
@@ -3053,6 +3210,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `username`, `email`, `phone`, `designation`, `status`, `password`, `image`, `remember_token`, `created_at`, `updated_at`) VALUES
+(0, 1, 'ismail', 'ismail@email.com', 'ismail@email.com', '111111111', 'Supper Admin', '1', '$2y$10$uxzATPC68adq/ZYPqHMqk.cRQbnQy1kpyCInYKXkpa6XIL5WsXYx6', 'public/uploads/avatar/avatar.png', NULL, '2021-11-23 09:03:42', '2021-11-23 09:03:42'),
 (1, 1, 'superadmin', 'User01', 'secure@websolutionit.com', '01766950985', 'CEO', '1', '$2y$10$nbnHm/VC1W0n6Y/FKLG5/OXBQk7aQgzXtyf2OR94LRvzwJPHEkBne', 'public/uploads/avatar/avatar.png', 'sWmw8RRpzbFWKGtsGDvRFykYernguzCeApvB3cxHiD43aypp6aV4EOwby6Kq', NULL, NULL),
 (2, 1, 'Admin', 'shamim', 'info@example.com', '01750843963', 'Superadmin', '1', '$2y$10$mX0PrbTemxFwTucIRo.C9.gjA17QlXOpR.eHg.Ce3lwA7eGef.Eb6', 'public/uploads/user/avatar.png', NULL, '2021-08-31 16:26:43', '2021-09-12 04:55:32'),
 (3, 1, 'Admin', 'Admin', 'mdanisurrahman6252@gmail.com', '0354654684', 'this is for demo', '1', '$2y$10$YDuAhxxHmAhhzKJZelEXX.uqPKTpETx2H9PO5RGe1Sf3tR1o1Mw62', 'public/uploads/user/mibro-color-500x500.jpg', NULL, '2021-09-08 09:09:15', '2021-09-12 04:54:55');
@@ -3122,6 +3280,12 @@ ALTER TABLE `brands`
 -- Indexes for table `carts`
 --
 ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cash_on_delivery_sets`
+--
+ALTER TABLE `cash_on_delivery_sets`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3290,6 +3454,12 @@ ALTER TABLE `payments`
   ADD PRIMARY KEY (`paymentIdPrimary`);
 
 --
+-- Indexes for table `paypal_sets`
+--
+ALTER TABLE `paypal_sets`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `productcolors`
 --
 ALTER TABLE `productcolors`
@@ -3381,6 +3551,12 @@ ALTER TABLE `social_customers`
   ADD UNIQUE KEY `social_customers_email_unique` (`email`);
 
 --
+-- Indexes for table `stripe_sets`
+--
+ALTER TABLE `stripe_sets`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `subcategories`
 --
 ALTER TABLE `subcategories`
@@ -3455,6 +3631,12 @@ ALTER TABLE `carts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `cash_on_delivery_sets`
+--
+ALTER TABLE `cash_on_delivery_sets`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -3518,7 +3700,7 @@ ALTER TABLE `customerapplies`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -3560,7 +3742,7 @@ ALTER TABLE `logos`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `news`
@@ -3578,13 +3760,13 @@ ALTER TABLE `offercategories`
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `orderDetails` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `orderDetails` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderIdPrimary` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `orderIdPrimary` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `ordertypes`
@@ -3608,7 +3790,13 @@ ALTER TABLE `paymentmethods`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `paymentIdPrimary` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `paymentIdPrimary` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `paypal_sets`
+--
+ALTER TABLE `paypal_sets`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `productcolors`
@@ -3674,7 +3862,7 @@ ALTER TABLE `shippingfees`
 -- AUTO_INCREMENT for table `shippings`
 --
 ALTER TABLE `shippings`
-  MODIFY `shippingPrimariId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `shippingPrimariId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `sizes`
@@ -3699,6 +3887,12 @@ ALTER TABLE `socialmedia`
 --
 ALTER TABLE `social_customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stripe_sets`
+--
+ALTER TABLE `stripe_sets`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
