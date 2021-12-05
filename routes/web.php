@@ -114,13 +114,13 @@ Route::group(['namespace'=>'frontEnd','middleware'=>['validcustomer']], function
     Route::get('/checkout','frontEndController@shipping');
     Route::post('/shipping/information','customerController@shippingInfo');
 
-    // Route::post('customer/order/save','customerController@orderSave');
+    Route::post('customer/order/save','customerController@orderSave');
 
-    Route::post('customer/order/save','PayNowController@orderSave');
+    Route::post('customer/order/store','PayNowController@orderSave');
 
     Route::get('customer/order/{order_id}/payemnt','PayNowController@payment_pay')->name('customer_order_payemnt');
 
-    Route::post('customer/order/payemnt/store','PayNowController@payment_pay_store');
+    Route::post('customer/order/payemnt/store','PayNowController@payment_pay_cash_on')->name('payment_pay_cash_on');
     Route::post('customer/order/payemnt/stripe','PayNowController@payment_pay_stripe');
     Route::post('customer/order/payemnt/paypal','PayNowController@payment_pay_paypal')->name('payment_pay_paypal');
 

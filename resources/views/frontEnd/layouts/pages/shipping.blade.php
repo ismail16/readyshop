@@ -23,7 +23,7 @@
 <!--custom breadcrumb end-->
 <section class="section-padding orderpage">
   <div class="container">
-    <form action="{{url('customer/order/save')}}" method="POST" name="editForm" class="pcustform">
+    <form action="{{url('customer/order/store')}}" method="POST" name="editForm" class="pcustform">
       @csrf
       <div class="row">
         <div class="col-lg-7 col-md-7 col-sm-7">

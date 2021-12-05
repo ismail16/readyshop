@@ -72,8 +72,11 @@ Route::group(['namespace' => 'Api','prefix'=>'v1','middleware' =>'auth.jwt'], fu
     Route::get('/customer/order','CustomerController@myorder');
     Route::get('/customer/order/invoice/{order_id}','CustomerController@orderInvoice');
     Route::post('/customer/product/review','CustomerController@customerReview');
+
     Route::post('/customer/order/save','CustomerController@orderSave');
+    
     Route::get('/customer/online-payment/{order_id}/{customer_id}','CustomerController@onlinepayment');
+
     Route::post('/customer/online-payment/genarate','CustomerController@onlinepaygen');
     Route::post('/customer/order-cancel','CustomerController@ordercancel');
 

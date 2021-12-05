@@ -113,7 +113,7 @@ class InstallController extends Controller
                 'APP_NAME=laravel
                 APP_ENV=local
                 APP_KEY=base64:' . $key . '
-                APP_DEBUG=false
+                APP_DEBUG=true
                 APP_INSTALL=true
                 APP_LOG_LEVEL=debug
                 APP_URL=' . URL::to('/') . '
@@ -135,14 +135,29 @@ class InstallController extends Controller
                 REDIS_PASSWORD=null
                 REDIS_PORT=6379
 
+                MAIL_MAILER=sendmail
+                MAIL_HOST=smtp.gmail.com
+                MAIL_PORT=587
+                MAIL_USERNAME=zadumia441@gmail.com
+                MAIL_PASSWORD=wxdyzfadpfcsrbmg
+                MAIL_ENCRYPTION=tls
+                MAIL_FROM_ADDRESS=info@websolutionit.com
+                MAIL_FROM_NAME="Shamim"
+
+                AWS_ACCESS_KEY_ID=
+                AWS_SECRET_ACCESS_KEY=
+                AWS_DEFAULT_REGION=us-east-1
+                AWS_BUCKET=
+
                 PUSHER_APP_ID=
                 PUSHER_APP_KEY=
                 PUSHER_APP_SECRET=
                 PUSHER_APP_CLUSTER=mt1
+                JWT_SECRET=LOW4gZDHFGbVb49PPGoDfdXeIn78w7DTOwYjjaTe9fOayscb31S4PLNbP2iOXYTr
 
                 PURCHASE_CODE=' . session('purchase_key') . '
                 BUYER_USERNAME=' . session('username') . '
-                SOFTWARE_ID=MzE0NDg1OTc=';
+                SOFTWARE_ID=MzE0NDg1OTc=;
 
             $file = fopen(base_path('.env'), 'w');
             fwrite($file, $output);

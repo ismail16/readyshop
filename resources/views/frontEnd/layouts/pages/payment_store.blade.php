@@ -29,7 +29,6 @@
             <div class="text-center alert-warning">
                 <span class="h5">Total Payment  - ${{($order->orderTotal + Session::get('shippingfee')) - Session::get('couponamount')}}</span>
             </div>
-            {{ $order }}
           </div>
          <div class="card p-2">
             <div class="order_wrapper">
@@ -108,7 +107,7 @@
                         </div>  
 
                         <div id="payment_cash_in" class="d-none">
-                            <form role="form" action="{{ route('payment_pay_store') }}" method="post">
+                            <form role="form" action="{{ route('payment_pay_cash_on') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="paymentType" value="cash_on_delivery">
                                 <input type="hidden" name="orderID" value="{{ $order->orderIdPrimary }}">
