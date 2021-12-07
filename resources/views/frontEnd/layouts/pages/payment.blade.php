@@ -76,7 +76,7 @@
 	                           </div>
 	                           <div class="cart_subtotal">
 	                               <p>Subtotal</p>
-	                               <p class="cart_amount">{{ session()->get('setting')->currency }} {{Cart::subtotal()}}</p>
+	                               <p class="cart_amount">{{ $setting->currency }} {{Cart::subtotal()}}</p>
 	                           </div>
 	                           <div class="cart_subtotal ">
 	                               <p>Shipping</p>
@@ -86,7 +86,7 @@
 	                           </div>
 	                           <div class="cart_subtotal">
 	                               <p>Total <span style="color: #D94939">(without shipping charge)</span></p>
-	                               <p class="cart_amount">{{ session()->get('setting')->currency }}  {{Cart::subtotal()}}</p>
+	                               <p class="cart_amount">{{ $setting->currency }}  {{Cart::subtotal()}}</p>
 	                           </div>
 	                        </div>
 	                    </div>

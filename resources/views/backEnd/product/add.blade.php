@@ -97,7 +97,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                               <label>Purchase Price <span>*</span></label>
-                              <input type="number" name="proPurchaseprice" class="form-control{{ $errors->has('proPurchaseprice') ? ' is-invalid' : '' }}" value="{{ old('proPurchaseprice') }}">
+                              <input type="number" step="any" name="proPurchaseprice" class="form-control{{ $errors->has('proPurchaseprice') ? ' is-invalid' : '' }}" value="{{ old('proPurchaseprice') }}">
 
                               @if ($errors->has('proPurchaseprice'))
                               <span class="invalid-feedback" role="alert">
@@ -110,7 +110,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                               <label>Old Price (Optional)</label>
-                              <input type="number" name="proOldprice" class="form-control{{ $errors->has('proOldprice') ? ' is-invalid' : '' }}" value="{{ old('proOldprice') }}">
+                              <input type="number" step="any" name="proOldprice" class="form-control{{ $errors->has('proOldprice') ? ' is-invalid' : '' }}" value="{{ old('proOldprice') }}">
 
                               @if ($errors->has('proOldprice'))
                               <span class="invalid-feedback" role="alert">
@@ -124,7 +124,7 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>New Price(Sale) <span>*</span></label>
-                          <input type="number" name="proNewprice" class="form-control{{ $errors->has('proNewprice') ? ' is-invalid' : '' }}" value="{{ old('proNewprice') }}">
+                          <input type="number" step="any" name="proNewprice" class="form-control{{ $errors->has('proNewprice') ? ' is-invalid' : '' }}" value="{{ old('proNewprice') }}">
 
                           @if ($errors->has('proNewprice'))
                           <span class="invalid-feedback" role="alert">

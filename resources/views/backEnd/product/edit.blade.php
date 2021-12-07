@@ -102,7 +102,7 @@
                       <div class="col-sm-4">
                             <div class="form-group">
                               <label>Purchase Price <span>*</span></label>
-                              <input type="number" name="proPurchaseprice" class="form-control{{ $errors->has('proPurchaseprice') ? ' is-invalid' : '' }}" value="{{$edit_data->proPurchaseprice}}">
+                              <input type="number" step="any" name="proPurchaseprice" class="form-control{{ $errors->has('proPurchaseprice') ? ' is-invalid' : '' }}" value="{{$edit_data->proPurchaseprice}}">
 
                               @if ($errors->has('proPurchaseprice'))
                               <span class="invalid-feedback" role="alert">
@@ -115,7 +115,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                               <label>Old Product (Optional)</label>
-                              <input type="number" name="proOldprice" class="form-control{{ $errors->has('proOldprice') ? ' is-invalid' : '' }}" value="{{ $edit_data->proOldprice}}">
+                              <input type="number" step="any" name="proOldprice" class="form-control{{ $errors->has('proOldprice') ? ' is-invalid' : '' }}" value="{{ $edit_data->proOldprice}}">
 
                               @if ($errors->has('proOldprice'))
                               <span class="invalid-feedback" role="alert">
@@ -129,7 +129,7 @@
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>New Price <span>*</span></label>
-                          <input type="number" name="proNewprice" class="form-control{{ $errors->has('proNewprice') ? ' is-invalid' : '' }}" value="{{$edit_data->proNewprice}}">
+                          <input type="number" step="any" name="proNewprice" class="form-control{{ $errors->has('proNewprice') ? ' is-invalid' : '' }}" value="{{$edit_data->proNewprice}}">
 
                           @if ($errors->has('proNewprice'))
                           <span class="invalid-feedback" role="alert">

@@ -8,6 +8,12 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $fillable = [];
+    protected $casts = [
+        'proPurchaseprice' => 'double',
+        'proOldprice' => 'double',
+        'proNewprice' => 'double',
+        'aditionalshipping' => 'double',
+    ];
   
 
     public function proSizes()
@@ -34,4 +40,6 @@ class Product extends Model
     public function categories(){
         return $this->belongsTo('App\Category', 'proCategory');
 	}
+
+    
 }

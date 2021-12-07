@@ -144,20 +144,20 @@
                </div>
                <div class="cart_subtotal">
                  <p>Subtotal</p>
-                 <p class="cart_amount">{{ session()->get('setting')->currency }} {{$subtotal}}</p>
+                 <p class="cart_amount">{{ $setting->currency }} {{$subtotal}}</p>
                </div>
                <div class="cart_subtotal ">
                  <p>Shipping</p>
 
-                 <p class="cart_amount">{{ session()->get('setting')->currency }} @if(Session::get('shippingfee') !=NULL) {{Session::get('shippingfee') + $extrashipping}}  @else 0 @endif</p>
+                 <p class="cart_amount">{{ $setting->currency }} @if(Session::get('shippingfee') !=NULL) {{Session::get('shippingfee') + $extrashipping}}  @else 0 @endif</p>
                </div>
                <div class="cart_subtotal">
                  <p>Discount</p>
-                 <p class="cart_amount">{{ session()->get('setting')->currency }}  @if(Session::get('couponamount') !=NULL) {{Session::get('couponamount')}} @else 0 @endif</p>
+                 <p class="cart_amount">{{ $setting->currency }}  @if(Session::get('couponamount') !=NULL) {{Session::get('couponamount')}} @else 0 @endif</p>
                </div>
                <div class="cart_subtotal">
                  <p>Total</p>
-                 <p class="cart_amount">{{ session()->get('setting')->currency }}  {{($subtotal + $extrashipping + Session::get('shippingfee')) - Session::get('couponamount')}}</p>
+                 <p class="cart_amount">{{ $setting->currency }}  {{($subtotal + $extrashipping + Session::get('shippingfee')) - Session::get('couponamount')}}</p>
                </div>
              </div>
 

@@ -45,7 +45,7 @@
                                     </td>
                                       <td><img src="{{asset($wishlistproduct->options->image)}}" style="width: 50px;height:50px" alt=""></td>
                                       <td> <a class="anchor" class="pcart-name">{{$wishlistproduct->name}}</a></td>
-                                      <td>{{ session()->get('setting')->currency }} {{$wishlistproduct->price}}</td>
+                                      <td>{{ $setting->currency }} {{$wishlistproduct->price}}</td>
                                       <td class="text-left"><a href="{{url('wishlist-product-add/'.$wishlistproduct->id.'/'.$wishlistproduct->rowId)}}" class="btn btn-primary">Add To Cart</a></td>
                                     </tr>
                                     @endforeach

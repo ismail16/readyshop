@@ -234,7 +234,7 @@
                         <span class="info-box-text">Today Sell</span>
                         <span class="info-box-number">
                           {{$todaysalesamount}}
-                          <small>Tk</small>
+                          <small>{{ $setting->currency }}</small>
                         </span>
                       </div>
                       <!-- /.info-box-content -->
@@ -260,7 +260,7 @@
                         <span class="info-box-text">Today Expence</span>
                         <span class="info-box-number">
                           {{$todayexpence}}
-                          <small>Tk</small>
+                          <small>{{ $setting->currency }}</small>
                         </span>
                       </div>
                       <!-- /.info-box-content -->

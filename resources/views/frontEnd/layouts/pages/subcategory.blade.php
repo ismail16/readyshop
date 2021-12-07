@@ -115,7 +115,7 @@
                                         <div class="hproduct-info">
                                             <p class="hproduct-name">  <a href="{{url('product-details/'.$value->id.'/'.$value->slug)}}">{{Str::limit($value->proName,40)}} </a></p> 
                                            <ul>
-                                             <li> <p class="hproduct-price">{{ session()->get('setting')->currency }}{{$value->proNewprice}} <span>@if($value->proOldprice){{ session()->get('setting')->currency }} 
+                                             <li> <p class="hproduct-price">{{ $setting->currency }}{{$value->proNewprice}} <span>@if($value->proOldprice){{ $setting->currency }} 
                                               {{$value->proOldprice}} 
                                             @endif</span></p></li>
                                              

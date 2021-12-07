@@ -54,7 +54,7 @@
               <div class="small-box bg-primary">
                   <div class="inner">
                     <h3>{{$stockpurchase}}</h3>
-                    <p>Total Stock Purchase (Tk)</p>
+                    <p>Total Stock Purchase ({{ $setting->currency }})</p>
                   </div>
                   <div class="icon">
                     <i class="fa fa-bar-chart"></i>
@@ -66,7 +66,7 @@
               <div class="small-box bg-info">
                   <div class="inner">
                     <h3>{{$stocksales}}</h3>
-                    <p>Total Stock Sales (Tk)</p>
+                    <p>Total Stock Sales ({{ $setting->currency }})</p>
                   </div>
                   <div class="icon">
                     <i class="fa fa-diamond"></i>
@@ -89,7 +89,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Sales</span>
-                <span class="info-box-number">{{$salesamount}} Tk</span>
+                <span class="info-box-number">{{$salesamount}} {{ $setting->currency }}</span>
 
                 <div class="progress">
                   <div class="progress-bar" style="width: 70%"></div>
@@ -108,7 +108,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Expense</span>
-                <span class="info-box-number">{{$totalexpence}} Tk</span>
+                <span class="info-box-number">{{$totalexpence}} {{ $setting->currency }}</span>
 
                 <div class="progress">
                   <div class="progress-bar" style="width: 70%"></div>
@@ -127,7 +127,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Revinue</span>
-                <span class="info-box-number">{{$salesamount - ($totaldiscount+$purchaseamount+$totalexpence)}} Tk</span>
+                <span class="info-box-number">{{$salesamount - ($totaldiscount+$purchaseamount+$totalexpence)}} {{ $setting->currency }}</span>
 
                 <div class="progress">
                   <div class="progress-bar" style="width: 70%"></div>

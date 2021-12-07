@@ -4,7 +4,7 @@
         <div class="row pt-5 d-flex justify-content-center">
             <div class="col-md-6">
                 <div class="mar-ver pad-btm text-center">
-                    <h1 class="h3">Sixvalley Software Installation</h1>
+                    <h1 class="h3">Ready Shop Software Installation</h1>
                     <p>Provide information which is required.</p>
                 </div>
                 <ol class="list-group">

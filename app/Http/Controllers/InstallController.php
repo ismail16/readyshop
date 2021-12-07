@@ -153,11 +153,12 @@ class InstallController extends Controller
                 PUSHER_APP_KEY=
                 PUSHER_APP_SECRET=
                 PUSHER_APP_CLUSTER=mt1
+                
                 JWT_SECRET=LOW4gZDHFGbVb49PPGoDfdXeIn78w7DTOwYjjaTe9fOayscb31S4PLNbP2iOXYTr
 
                 PURCHASE_CODE=' . session('purchase_key') . '
                 BUYER_USERNAME=' . session('username') . '
-                SOFTWARE_ID=MzE0NDg1OTc=;
+                SOFTWARE_ID=MzE0NDg1OTc=';
 
             $file = fopen(base_path('.env'), 'w');
             fwrite($file, $output);
