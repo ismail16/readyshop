@@ -217,12 +217,25 @@ class PayNowController extends Controller
 
           Toastr::success('Thanks, Your order Save successfully', 'Success!');
           // return redirect('customer/order-complete/'.$order->id);
-          return redirect('customer/order/'.$order->id.'/payemnt');
+          return redirect('customer/order/'.$order->id.'/payment');
 
         }else{
             Toastr::error('Opps please shopping first', 'Cart Empty');
             return redirect('/');
         }
+    }
+
+    public function payment_payment(Request $request){
+
+        $url =  url()->current();
+        $url = explode('/', $url);
+        $url = array_reverse($url);
+        $order_id = $url[1];
+
+        $order = Order::where('orderIdPrimary', $order_id)->first();
+        $extrashipping = Order::where('orderIdPrimary', $order_id)->first();
+
+        return view('frontEnd.layouts.pages.payment_store', compact('order','extrashipping'));
     }
 
     public function payment_pay(Request $request){
@@ -235,7 +248,7 @@ class PayNowController extends Controller
         $order = Order::where('orderIdPrimary', $order_id)->first();
         $extrashipping = Order::where('orderIdPrimary', $order_id)->first();
 
-        return view('frontEnd.layouts.pages.payment_store', compact('order','extrashipping'));
+        return view('frontEnd.layouts.pages.payment_pay', compact('order_id','extrashipping'));
     }
 
     public function payment_pay_cash_on(Request $request){

@@ -112,7 +112,6 @@
                 </div>
             </div>
         </div>
-    }
     </div>
    <!-- Mobile header top End -->
    <section class="mobile-header-design hidden-lg hidden-md">
@@ -416,7 +415,7 @@
                 <div class="col-md-12">
                     <div class="copyright">
                         <p style="color:#fff">
-                            Copyright ©  @php  echo date('Y') @endphp website.com. All rights reserved.</p>
+                            Copyright ©  @php  echo date('Y') @endphp {{ $setting->system_name }}. All rights reserved.</p>
                     </div>
                 </div>
             </div>

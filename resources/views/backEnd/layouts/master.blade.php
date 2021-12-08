@@ -595,7 +595,7 @@
   
   <!-- /.content-wrapper -->
   <footer class="main-footer no-print">
-    <strong> Copyright By Ready Shop </strong>
+    <strong> Copyright ©  @php  echo date('Y') @endphp {{ $setting->system_name }}. All rights reserved </strong>
   </footer>
 
   <!-- Control Sidebar -->

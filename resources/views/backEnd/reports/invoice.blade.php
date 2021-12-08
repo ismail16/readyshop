@@ -81,7 +81,6 @@
        <button onclick="myFunction()" style="color: #fff;border: 0;padding: 6px 12px;background: green;border-radius: 5px;margin: 0 auto;
     margin-bottom: 0px;text-align: center;display: block;margin-bottom: 15px;cursor: pointer;" class="no-print"><i class="fa fa-print"></i></button>
 </div>
-    <p style="margin-bottom:10px;text-align: center;">আপনি যদি পিডিএফ আকারে ইনভয়েসটি ডাউনলোড করতে চান তাহলে প্রিন্ট এ  ক্লিক করে  Save As PDF এ সেভ করুন </p>
     <div class="invoice-box" id="printDivone">
         <table>
             <tr>

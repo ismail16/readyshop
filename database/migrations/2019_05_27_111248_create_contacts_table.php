@@ -15,7 +15,8 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('currency');
+            $table->string('system_name')->default('Ready Shop');
+            $table->string('currency')->default('$');
             $table->string('phone');
             $table->string('email');
             $table->text('address');

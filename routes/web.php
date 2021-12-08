@@ -118,7 +118,9 @@ Route::group(['namespace'=>'frontEnd','middleware'=>['validcustomer']], function
 
     Route::post('customer/order/store','PayNowController@orderSave');
 
-    Route::get('customer/order/{order_id}/payemnt','PayNowController@payment_pay')->name('customer_order_payemnt');
+    Route::get('customer/order/{order_id}/payment','PayNowController@payment_payment')->name('customer_order_payemnt');
+
+    Route::get('customer/order/{order_id}/pay','PayNowController@payment_pay');
 
     Route::post('customer/order/payemnt/store','PayNowController@payment_pay_cash_on')->name('payment_pay_cash_on');
     Route::post('customer/order/payemnt/stripe','PayNowController@payment_pay_stripe');

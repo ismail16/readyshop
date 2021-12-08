@@ -21,6 +21,18 @@
                          <input type="hidden" value="{{$edit_data->id}}" name="hidden_id">
                         <div class="col-sm-12">
                             <div class="form-group">
+                              <label>System Name</label>
+                              <input type="text" name="system_name" class="form-control{{ $errors->has('system_name') ? ' is-invalid' : '' }}" value="{{$edit_data->system_name }}">
+
+                              @if ($errors->has('system_name'))
+                              <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('system_name') }}</strong>
+                              </span>
+                              @endif
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
                               <label>Currency</label>
                               <input type="text" name="currency" class="form-control{{ $errors->has('currency') ? ' is-invalid' : '' }}" value="{{$edit_data->currency }}">
 
